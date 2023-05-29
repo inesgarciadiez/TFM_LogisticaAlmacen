@@ -1,0 +1,15 @@
+
+.d-flex {
+    background-color: #151849;
+    align-items: center;
+}
+
+.p-2 {
+    margin-top: 20px;
+}
+
+.hr {
+    color: white;
+    margin-top: 30px;
+    padding-left: 30px;
+}
