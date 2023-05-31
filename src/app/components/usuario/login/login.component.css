@@ -1,0 +1,35 @@
+
+.p-4 {
+    text-align: center;
+}
+ .log {
+    margin-top: 20px;
+ }
+.rounded-circle {
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+    margin-left: 60px;
+    margin-bottom: 40px;
+    background-color: darkgoldenrod;
+}
+
+.close {
+    text-align: right;
+}
+
+.form-control {
+    height: 60px;
+    background-color: rgb(252, 240, 211);
+    border-color: transparent;
+}
+.input-group-text {
+    text-align: center;
+    background-color: rgb(224, 196, 126);
+    border-color: transparent;
+}
+
+.btn {
+    background-color: darkgoldenrod;
+    margin-top: 40px;
+}
