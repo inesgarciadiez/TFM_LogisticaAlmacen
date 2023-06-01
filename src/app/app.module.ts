@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/usuario/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { JefeModule } from './components/app-roles/jefe/jefe.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JefeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

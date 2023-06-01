@@ -3,7 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/usuario/login/login.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent}
+  { path: '', redirectTo: 'jefe', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent},
+  { 
+    path:"jefe",
+    loadChildren: ()=> import("./components/app-roles/jefe/jefe.module").then((m)=> m.JefeModule)
+  }
 ];
 
 @NgModule({
