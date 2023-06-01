@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class LoginComponent {
 
   formulario: FormGroup;
 
-  constructor(private usuariosService: UsuariosService) {
+  constructor(private usuariosService: UsuariosService,
+              private router: Router) {
     this.formulario = new FormGroup({
       email: new FormControl(),
       password: new FormControl()
@@ -25,7 +27,8 @@ export class LoginComponent {
       return alert(response.fatal);
     }
 
-    console.log(response.token);
     localStorage.setItem('token_user', response.token);
+    this.usuariosService.changeLogin(true);
+    //this.router.navigate(['/']);
   }
 }
