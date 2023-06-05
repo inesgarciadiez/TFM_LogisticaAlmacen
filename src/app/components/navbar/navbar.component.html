@@ -1,14 +1,36 @@
-<nav class="navbar bg-body-tertiary text-white">
+<!-- <nav class="navbar bg-body-tertiary text-white">
     <div class="container-fluid">
         <a class="navbar-brand">
             <div class="d-flex">
                 <img src="./assets/logo.png" alt="" width="300px" height="200px" class="img-fluid">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Login
-                </button>
+                
+                
             </div>
         </a>
     </div>
 
+</nav> -->
+<nav
+  class="navbar navbar-expand-lg header"
+>
+  <div class="container nav-wrapper">
+    <div class="logo">
+      <img class="img-responsive" src="./assets/logo.png" alt="" />
+    </div>
+    <ul class="navbar-nav gap-4">
+      <li class="nav-item nav">
+        <a class="nav-link especial btn" routerLinkActive="active" [routerLink]="['/home']">Home</a>
+      </li>
+      <li class="nav-item nav">
+        <button type="button" class="btn login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fa-solid fa-right-to-bracket"></i> Login
+        </button>
+      </li>
+    </ul>
+  </div>
 </nav>
+<div class="img-home">
+  <img class="img-responsive" src="./assets/logistica.jpg" alt="" />
+  <h1 class="slogan">MÁS ALLÁ DE LAS FRONTERAS</h1>
+</div>
+<div class="linea"></div>

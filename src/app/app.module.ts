@@ -5,23 +5,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './components/usuario/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JefeModule } from './components/app-roles/jefe/jefe.module';
+import { HomeComponent } from './components/theme/home/home.component';
+import { LoginComponent } from './components/usuario/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    LoginComponent
+    HomeComponent,
+    LoginComponent,
   ],
   imports: [
-    BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    JefeModule
+    JefeModule,
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
