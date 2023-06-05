@@ -1,4 +1,4 @@
-
+/* 
 .d-flex {
     background-color: #151849;
     align-items: center;
@@ -12,4 +12,33 @@
     color: white;
     margin-top: 30px;
     padding-left: 30px;
+} */
+
+footer{
+    background-color: #151849; 
+    padding: 30px;
+    text-align: center;
+
+    bottom: -10;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
+.copy{
+    color: antiquewhite;
+    font-size: x-small;
+    margin: 0;
+}
+.logo {
+  flex-basis: 18%;
+  padding: 10px;
+}
+.img-responsive {
+  max-width: 100%;
+}
+.linea {
+    background-color: antiquewhite;
+    display: flex;
+    flex-basis: 33%;
+    height: 2px; /* Ajusta la altura de la línea según tus necesidades */
+  }
