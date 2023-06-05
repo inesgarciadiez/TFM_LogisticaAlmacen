@@ -1,0 +1,55 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+    <div class="modal-content border-0 modal-fondo">
+        <div class="modal-header custom">
+          <h6 class="modal-title" *ngIf="usuario != undefined">EDITAR EMPLEADOS</h6>
+          <h6 class="modal-title" *ngIf="usuario == undefined">NUEVO EMPLEADOS</h6>
+        </div>
+        <div class="modal-body p-modal">
+            <h6 class="ms-4" *ngIf="usuario != undefined">FORMULARIO EDITAR EMPLEADO</h6>
+            <h6 class="ms-4" *ngIf="usuario == undefined">FORMULARIO NUEVO EMPLEADO</h6>
+             <div class="flex-row d-flex justify-content-around mb-3 mt-4">
+                <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Nombre</label>
+                    <input type="text" formControlName="nombre" class="form-control border-0 sombras" id="inputEmail4">
+                  </div>
+                  <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Apellidos</label>
+                    <input type="text" formControlName="apellidos" class="form-control border-0 sombras" id="inputEmail4">
+                  </div>
+                </div>
+               <div class="flex-row d-flex justify-content-around">
+                  <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Correo</label>
+                    <input type="email" formControlName="correo" class="form-control border-0 sombras" id="inputEmail4">
+                  </div>
+                  <div class="col-md-5">
+                    <label for="inputPassword4" class="form-label">Password</label>
+                    <input type="text" formControlName="contrasena" class="form-control border-0 sombras" id="inputPassword4">
+                  </div>
+                </div>
+
+            <div class="mt-5 p-0 form-check custom-radio ">
+
+                <h6 class="mb-3">Seleccione un ROL</h6>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" formControlName="rol" name="rol" id="inlineRadio1" value="Encargado">
+                    <label class="form-check-label" for="inlineRadio1">Encargado</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" formControlName="rol" type="radio" name="rol" id="inlineRadio2" value="Operario">
+                    <label class="form-check-label" for="inlineRadio2">Operario</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" formControlName="rol" name="rol" id="inlineRadio3" value="Jefe">
+                    <label class="form-check-label" for="inlineRadio3">Jefe de Equipo</label>
+                  </div>
+    
+            </div>
+
+        </div>
+        <div class="flex-row d-flex justify-content-end gap-2 footer-modal">
+            <button type="submit" class="btn btn-guardar"> <i class="fa-solid fa-lg fa-floppy-disk"></i> Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="activeModal.close(null)">Cancelar</button>
+        </div>
+      </div>
+</form>

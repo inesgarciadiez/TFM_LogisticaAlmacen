@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { JefeModule } from './components/app-roles/jefe/jefe.module';
 import { HomeComponent } from './components/theme/home/home.component';
 import { LoginComponent } from './components/usuario/login/login.component';
 
@@ -16,11 +17,13 @@ import { LoginComponent } from './components/usuario/login/login.component';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    
   ],
   imports: [
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    JefeModule,
     BrowserModule,
     HttpClientModule
   ],
