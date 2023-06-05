@@ -24,7 +24,7 @@ import { LoginComponent } from './components/usuario/login/login.component';
     HttpClientModule,
     ReactiveFormsModule,
     JefeModule,
-a    BrowserModule,
+    BrowserModule,
     HttpClientModule
   ],
   providers: [],

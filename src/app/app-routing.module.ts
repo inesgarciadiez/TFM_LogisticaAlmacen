@@ -12,7 +12,6 @@ const routes: Routes = [
     loadChildren: ()=> import("./components/app-roles/jefe/jefe.module").then((m)=> m.JefeModule)
   },
 
-  {path: '**', component: HomeComponent}
 ];
 
 @NgModule({
