@@ -7,19 +7,25 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/usuario/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListaPedidosComponent } from "./components/usuario/operario/lista-pedidos/lista-pedidos.component";
+import { FormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    ListaPedidosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

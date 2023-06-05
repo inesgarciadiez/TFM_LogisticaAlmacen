@@ -1,0 +1,43 @@
+h1{
+    margin-top: 10px;
+  }
+  
+  @media screen and (max-width: 576px){
+      .custom-pagination-align{
+          text-align: left !important;
+      }
+      ul{
+          column-count : 2
+      }
+      .live-code{
+         display: none !important;
+      }
+  }
+
+  #pass{
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    color: #55545D;
+  }
+  
+  .bloque1{
+    margin-top: 5rem;
+  }
+  
+  .input-buscar{
+    border-color: #1B2540;
+    background-color: #f2f2f2;
+  }
+  .input-buscar:focus{
+    box-shadow: none;
+  }
+  
+  
+  .icon-buscar{
+    background-color: #98B9BE;
+    color: #1B2540;
+  }
+  .form-control:focus {
+    outline: none;
+  }
