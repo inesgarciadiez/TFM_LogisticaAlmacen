@@ -15,7 +15,7 @@ export class ListadoPasadosComponent {
   async ngOnInit() {
     const response = await this.listadoService.getAll();
 
-    console.log(response[0]);
+    console.log(response);
 
   }
 
