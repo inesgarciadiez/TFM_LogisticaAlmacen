@@ -6,26 +6,33 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { JefeModule } from './components/app-roles/jefe/jefe.module';
 import { HomeComponent } from './components/theme/home/home.component';
 import { LoginComponent } from './components/usuario/login/login.component';
+import { OperarioModule } from './components/app-roles/operario/operario.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    HomeComponent,
     LoginComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
+    NgxDatatableModule,
     JefeModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    OperarioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

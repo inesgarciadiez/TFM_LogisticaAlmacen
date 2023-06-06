@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade modal-lg modal-dialog modal-dialog-centered" id="exampleModal"
+<div class="modal fade modal-lg modal-dialog" id="exampleModal"
   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -28,7 +28,7 @@
                       <input type="password" class="form-control"  formControlName="password" placeholder="Contraseña">
                     </div>
                     <p class="text-center text-primary">¿Olvidó su contraseña?</p>
-                    <button type="submit" class="btn text-white">Iniciar sesión</button>
+                    <button type="submit" class="btn text-white" data-bs-dismiss="modal" [routerLink]="['operario']">Iniciar sesión</button>
                   </div>
                 </form>
               </div>

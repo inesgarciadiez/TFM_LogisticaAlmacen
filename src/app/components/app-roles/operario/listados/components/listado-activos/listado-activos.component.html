@@ -1,0 +1,18 @@
+<div class="d-flex flex-row justify-content-sm-between bloque1">
+    <div>
+      <button (click)="crearPedido()" class="btn btn-guardar btn-sm" ><i class="fa-regular fa-folder-plus"></i> Pedido</button>
+    </div>
+    <div>
+    <div class="input-group input-group-sm">
+      <input type="text" #search id="search" class="form-control input-buscar border-0" placeholder="Buscar...">
+      <span class="input-group-text border-0 icon-buscar" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
+    </div>
+    </div>
+    
+</div>
+
+<div>
+    <ngx-datatable #table class="bootstrap mb-5 mt-3" [rows]="rows" [columns]="columns">
+            
+    </ngx-datatable>
+</div>
