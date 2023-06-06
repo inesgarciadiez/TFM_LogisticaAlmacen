@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './components/usuario/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ListaPedidosComponent } from "./components/usuario/operario/lista-pedidos/lista-pedidos.component";
 import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { JefeModule } from './components/app-roles/jefe/jefe.module';
+import { HomeComponent } from './components/theme/home/home.component';
+import { LoginComponent } from './components/usuario/login/login.component';
+import { OperarioModule } from './components/app-roles/operario/operario.module';
 
 @NgModule({
   declarations: [
@@ -17,15 +19,20 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    ListaPedidosComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
-    BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    JefeModule,
+    BrowserModule,
+    HttpClientModule,
+    OperarioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

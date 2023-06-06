@@ -1,1 +1,117 @@
+@import "/node_modules/@swimlane/ngx-datatable/index.css";
+@import "/node_modules/@swimlane/ngx-datatable/themes/bootstrap.css";
+@import "/node_modules/@swimlane/ngx-datatable/assets/icons.css";
+@import "/node_modules/@ng-select/ng-select/themes/default.theme.css";
+
+
+
 /* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: border-box;
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  .wrapper{
+    min-height: 100%;
+}
+
+/*BOTONES*/
+
+.btn.btn-guardar{
+    background-color: #98B9BE;
+    color: #1B2540;
+    text-decoration: none;
+}
+.btn.btn-guardar:hover{
+    background-color: #73a0a7;
+    color: #1B2540;
+    text-decoration: none;
+}
+
+
+
+/* TABLAS */
+
+.ngx-datatable.bootstrap .datatable-header .datatable-header-inner{
+    background-color:#1B2540;
+    color: white;
+    border-radius: 7px 7px 0px 0px;
+    text-align: center; 
+}
+.ngx-datatable.bootstrap .datatable-footer{
+    background-color:#1B2540 !important;
+}
+.ngx-datatable.bootstrap .datatable-footer .datatable-footer-inner{
+ background-color:#1B2540;
+ color: white;
+ margin-top: 5px;
+}
+.ngx-datatable.bootstrap .btn-edit{
+    color: #55545D;
+}
+.ngx-datatable.bootstrap .btn-trash{
+    color: #BC7B39;
+} 
+
+.ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled).active a{
+background-color: #686868 !important;
+}
+.ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled):hover a{
+background-color:  #686868 !important;
+}
+.ngx-datatable.bootstrap .bloque-botones {
+display: flex;
+justify-content: center;
+}
+.ngx-datatable.bootstrap .acciones-span {
+margin-right: 1em;
+text-align: center;
+}
+
+.ng-select.ng-select-opened.ng-select-bottom > .ng-select-container{
+    border: none !important;
+    border-radius: 7px 7px 0px 0px;
+    color: #848484;
+}
+.ng-select.ng-select-single .ng-select-container{
+    border: none !important;
+    border-radius: 7px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    color: #848484;
+}
+
+/* MODAL */
+
+.modal-header.custom{
+    background-color: #1B2540;
+    color: white;
+    border: 0px;
+    height: 50px;
+  }
+  
+.modal-content.modal-fondo{
+    background-color: #fbfbfb;
+    
+}
+
+.modal-content .btn-eliminar{
+    background-color: #BC7B39;
+    color: white;
+}
+.modal-content .btn-eliminar:hover{
+    background-color: #86582a;
+    color: white;
+}
+
+body {
+    margin: 0;
+    
+  }
+  .img-responsive {
+    max-width: 100%;
+  }

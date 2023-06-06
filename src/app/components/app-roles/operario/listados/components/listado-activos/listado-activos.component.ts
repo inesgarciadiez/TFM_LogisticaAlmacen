@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ListadoService } from 'src/app/services/listado.service';
 
 @Component({
-  selector: 'app-lista-pedidos',
-  templateUrl: './lista-pedidos.component.html',
-  styleUrls: ['./lista-pedidos.component.css']
+  selector: 'app-listado-activos',
+  templateUrl: './listado-activos.component.html',
+  styleUrls: ['./listado-activos.component.css']
 })
 
-export class ListaPedidosComponent implements OnInit {
+export class ListadoActivosComponent implements OnInit {
 
   constructor(private listadoService: ListadoService) {
 
@@ -19,6 +19,17 @@ export class ListaPedidosComponent implements OnInit {
     console.log(response[0]);
 
   }
+
+  crearPedido(){
+/*     const modalRef = this.modalService.open(ModalEditarUsuarioComponent, { centered: true, size: 'lg'});
+    modalRef.componentInstance.almacenes = this.dataAlmacenes
+    modalRef.result.then((result) => {
+      if(result){
+        console.log("creo")
+      }
+    }); */
+  }
+
   rows = [
     { referencia: 'Austin', estado: 'Male', fechaSalida: 'Swimlane', almacenOrigen: 'Swimlane', almacenDestino: 'Swimlane', matricula: 22 },
     { referencia: 'Dany', estado: 'Male', fechaSalida: 'KFC', almacenOrigen: 'Swimlane', almacenDestino: 'Swimlane', matricula: 'Swimlane'  },
