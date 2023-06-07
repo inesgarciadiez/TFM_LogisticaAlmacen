@@ -29,6 +29,6 @@ export class LoginComponent {
 
     localStorage.setItem('token_user', response.token);
     this.usuariosService.changeLogin(true);
-    //this.router.navigate(['/']);
+    this.router.navigate(['listados/listado-activos']);
   }
 }
