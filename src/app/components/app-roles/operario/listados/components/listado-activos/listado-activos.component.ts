@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListadoService } from 'src/app/services/listado.service';
 import { ListadoActivos } from '../../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-alta-pedido.component';
+import { debounceTime, fromEvent, map } from 'rxjs';
 
 @Component({
   selector: 'app-listado-activos',
@@ -11,6 +12,7 @@ import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-a
 })
 
 export class ListadoActivosComponent implements OnInit {
+  @ViewChild ("search", {static: false}) search: any
 
   public dataListadoActivos: ListadoActivos[] = [];
   public temp: Array<object> = [];
@@ -74,6 +76,19 @@ export class ListadoActivosComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    fromEvent(this.search.nativeElement, 'keydown')
+      .pipe(
+        debounceTime(550),
+        map((x:any) => x['target']['value'])
+      )
+      .subscribe((value) => {
+        this.updateFilter(value);
+      });
+  }
+  updateFilter(value: any) {
+    throw new Error('Method not implemented.');
+  }
 /*   rows = [
     { referencia: 'Austin', estado: 'Male', fechaSalida: 'Swimlane', almacenOrigen: 'Swimlane', almacenDestino: 'Swimlane', matricula: 22 },
     { referencia: 'Dany', estado: 'Male', fechaSalida: 'KFC', almacenOrigen: 'Swimlane', almacenDestino: 'Swimlane', matricula: 'Swimlane'  },

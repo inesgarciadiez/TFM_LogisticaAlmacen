@@ -22,17 +22,6 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
   public rol! : Roles
   private destroyed$ = new Subject<void>()
   
-
-  // public dataPrueba: Users[] = [ 
-  //  { nombre: "Pedro  ", apellidos:"Martinez Garcia ",  rol: "Operario" , email: "pedro@correo.com", contrasena: "pedrito",    },
-  //  { nombre: "Juan   ", apellidos:"Martinez Garcia ",   rol: "Encargado",email: "juan@correo.com", contrasena: "pedrito", almacen: {direccion: 'Calle Ejemplo 123', ciudad: 'Madrid', c_postal: 28001, nombre: 'Almacen 1'} },
-  //  { nombre: "Carlo  ", apellidos:"Martinez Garcia ",  rol: "Operario" , email: "carlo@correo.com", contrasena: "pedrito",    },
-  //  { nombre: "David  ", apellidos:"Martinez Garcia ",  rol: "Encargado", email: "david@correo.com", contrasena: "pedrito", almacen: {direccion: 'Avenida Principal 456', ciudad: 'Barcelona', c_postal: 18002, nombre: 'Almacen 2'} },
-  //  { nombre: "Daniel ", apellidos:"Martinez Garcia ",  rol: "Operario",  email: "daniel@correo.com", contrasena: "pedrito",  },
-  //  { nombre: "Miguel ", apellidos:"Martinez Garcia ",  rol: "Encargado", email: "miguel@correo.com", contrasena: "pedrito", almacen: {direccion: 'Calle Principal 789', ciudad: 'Valencia', c_postal: 46001, nombre: 'Almacen 3'} },
-  //  { nombre: "Manuel ", apellidos:"Martinez Garcia ",  rol: "Operario",  email: "manuel@correo.com", contrasena: "pedrito",  },
-  // ]
-
   public dataAlmacenes: Almacenes[] = [ 
     { direccion: 'Calle Ejemplo 123', ciudad: 'Madrid', c_postal: 28001, nombre: 'Almacen 1' },
     { direccion: 'Avenida Principal 456', ciudad: 'Barcelona', c_postal: 18002, nombre: 'Almacen 2' },
