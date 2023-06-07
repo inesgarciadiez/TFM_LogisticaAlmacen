@@ -27,7 +27,7 @@ export class ModalEditarUsuarioComponent implements OnInit, OnDestroy {
       this.form = this.fb.group({
         nombre: [nombre[0]],
         apellidos: [nombre[1]],
-        correo: [this.usuario.email],
+        correo: [{value: this.usuario.email, disabled:true}],
         rol: [this.usuario.rol],
         contrasena: [this.usuario.contraseña],
         almacen: [this.usuario.almacen?.nombre]

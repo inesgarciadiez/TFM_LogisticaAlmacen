@@ -13,7 +13,6 @@ export class ListadosService {
   constructor( private clientHttp:HttpClient ) { }
 
   obtenerUsuarios(): Observable<Users[]>{
-    console.log()
     const url = `${environment.apiUrl}/usuarios`
     return this.clientHttp.get<Users[]>(url);
   }
