@@ -1,0 +1,47 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+    <div class="modal-content border-0 modal-fondo">
+        <div class="modal-header custom">
+          <h6 class="modal-title" *ngIf="usuario != undefined">EDITAR EMPLEADOS</h6>
+          <h6 class="modal-title" *ngIf="usuario == undefined">ALTA PEDIDO</h6>
+        </div>
+        <div class="modal-body p-modal">
+            <h6 class="ms-4" *ngIf="usuario != undefined">FORMULARIO EDITAR EMPLEADO</h6>
+            <h6 class="ms-4" *ngIf="usuario == undefined">FORMULARIO ALTA PEDIDO</h6>
+             <div class="flex-row d-flex justify-content-around mb-3 mt-4">
+                <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Fecha</label>
+                    <div class="md-form md-outline input-with-post-icon datepicker" id="customDays">
+                        <input placeholder="Select date" type="text" id="Customization" class="form-control">
+                        <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                      </div>
+                    </div>
+                  <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Almacén origen</label>
+                    <input type="text" formControlName="apellidos" class="form-control border-0 sombras" id="inputEmail4">
+                  </div>
+                </div>
+               <div class="flex-row d-flex justify-content-around">
+                  <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Almacén destino</label>
+                    <input type="email" formControlName="correo" class="form-control border-0 sombras" id="inputEmail4">
+                  </div>
+                  <div class="col-md-5">
+                    <label for="inputPassword4" class="form-label">Matrícula del camión</label>
+                    <input type="text" formControlName="contrasena" class="form-control border-0 sombras" id="inputPassword4">
+                  </div>
+                </div>
+
+            <div class="mt-5 p-0 form-check custom-radio ">
+                <label for="exampleFormControlTextarea1" class="form-label">Detalles de la carga</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    
+            </div>
+
+        </div>
+        <div class="flex-row d-flex justify-content-end gap-2 footer-modal">
+            <button type="submit" class="btn btn-guardar"> <i class="fa-solid fa-lg fa-floppy-disk"></i> Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="activeModal.close(null)">Cancelar</button>
+        </div>
+      </div>
+</form>
+

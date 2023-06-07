@@ -12,7 +12,27 @@
 </div>
 
 <div>
-    <ngx-datatable #table class="bootstrap mb-5 mt-3" [rows]="rows" [columns]="columns">
-            
+    <ngx-datatable #table class="bootstrap mb-5 mt-3" [rows]="rows" [columns]="columns" [headerHeight]="40" 
+    [columnMode]="'force'" [footerHeight]="40" [limit]="10" rowHeight="auto">
+    <ngx-datatable-column name="acciones" [sortable]="false" prop="name">
+      <ng-template let-column="column" ngx-datatable-header-template>
+        <div class="acciones-span">
+          <span>Acciones</span>
+        </div>
+      </ng-template>
+  
+      <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+        <div class="text-center">
+          <div class="btn-group btn-group-sm" role="group">
+            <button type="button" class="btn btn-edit">
+              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+            </button>
+            <button type="button" class="btn btn-trash">
+              <i class="fa-solid fa-trash-can fa-lg"></i>
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
     </ngx-datatable>
 </div>

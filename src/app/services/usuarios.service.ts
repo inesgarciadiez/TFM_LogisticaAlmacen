@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
@@ -34,6 +34,28 @@ export class UsuariosService {
 
   changeLogin(logged: boolean) {
     this._logged.next(logged);
+  }
+
+  getByEmail() {
+    const httpOptions = {
+        headers: new HttpHeaders ({
+            'Authorization': localStorage.getItem('token_user')!
+        })
+    }
+    return firstValueFrom (
+        this.httpClient.get<any>(`${this.baseUrl}/6`, httpOptions)
+    )
+  }
+
+  getAll() {
+    const httpOptions = {
+        headers: new HttpHeaders ({
+            'Authorization': localStorage.getItem('token_user')!
+        })
+    }
+    return firstValueFrom (
+        this.httpClient.get<any>(`${this.baseUrl}`, httpOptions)
+    )
   }
 
 }

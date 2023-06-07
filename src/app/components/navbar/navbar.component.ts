@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private router: Router) {}
 
   estaHome(): boolean{
-    return this.route.snapshot.routeConfig?.path === 'home';
+    return this.router.url === '/home';
   }
+  estaLogin(): boolean{
+    return this.router.url === '/login';
+  }
+
 }
