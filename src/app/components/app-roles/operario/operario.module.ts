@@ -13,6 +13,7 @@ import { ListadosService } from './services/listados.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ListadoActivosComponent } from './listados/components/listado-activos/listado-activos.component';
 import { ListadoPasadosComponent } from './listados/components/listado-pasados/listado-pasados.component';
+import { ModalAltaPedidoComponent } from './listados/components/listado-activos/components/modal-alta-pedido/modal-alta-pedido.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ListadoPasadosComponent } from './listados/components/listado-pasados/l
     ListadosComponent,
 /*     ModalEditarUsuarioComponent,
     ModalEliminarUsuarioComponent, */
-    ListadoPasadosComponent
+    ListadoPasadosComponent,
+ModalAltaPedidoComponent
   ],
   imports: [
     CommonModule,

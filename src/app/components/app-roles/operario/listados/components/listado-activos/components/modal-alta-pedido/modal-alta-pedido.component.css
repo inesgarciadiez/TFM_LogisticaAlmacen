@@ -1,0 +1,25 @@
+.sombras {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    color: #848484;
+  }
+  .p-modal{
+    padding: 40px 50px 20px 50px;
+    color: #404040;
+  }
+
+
+  .footer-modal{
+    margin: 5px 40px 25px 0px;
+  }
+  
+  .custom-radio{
+    margin-left: 30px;
+  }
+
+  .custom-radio .form-check-input:checked{
+    background-color: #BC7B39;
+    border: 2px solid #BC7B39;
+  }
+  .custom-radio .form-check-input{
+    border: 2px solid #BC7B39;
+  }

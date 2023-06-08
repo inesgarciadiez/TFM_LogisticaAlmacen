@@ -15,6 +15,8 @@ export class NavbarComponent {
   }
   estaLogin(): boolean{
     return this.router.url === '/login';
+    return this.router.url === '/home';
   }
+  }
 
-}
+

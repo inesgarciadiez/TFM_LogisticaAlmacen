@@ -12,7 +12,8 @@
 </div>
 
 <div>
-    <ngx-datatable #table class="bootstrap mb-5 mt-3" [rows]="rows" [columns]="columns">
+    <ngx-datatable #table class="bootstrap mb-5 mt-3" [rows]="rows" [columns]="columns" [headerHeight]="40" 
+    [columnMode]="'force'" [footerHeight]="40" [limit]="10" rowHeight="auto">
             
     </ngx-datatable>
 </div>

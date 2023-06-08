@@ -24,11 +24,24 @@ export class LoginComponent {
     const response = await this.usuariosService.login(this.formulario.value);
 
     if (response.fatal) {
+      this.router.navigate(['home']);
       return alert(response.fatal);
     }
 
     localStorage.setItem('token_user', response.token);
     this.usuariosService.changeLogin(true);
-    this.router.navigate(['listados/listado-activos']);
+
+    if (response.rol === 1)
+    {
+      this.router.navigate(['listados/listado-activos']);
+
+    }
+    else if (response.rol === 3)
+    {
+      this.router.navigate(['listados/listado-usuarios']);
+    }
+    else {
+
+    }
   }
 }

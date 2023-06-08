@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ListadoService } from 'src/app/services/listado.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ListadoActivos } from '../../../interfaces';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-alta-pedido.component';
+import { Subject, debounceTime, fromEvent, map } from 'rxjs';
+import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
+import { Roles } from 'src/app/shared/rol-enum';
+import { ListadosService } from '../../../services/listados.service';
 
 @Component({
   selector: 'app-listado-activos',
@@ -8,34 +14,97 @@ import { ListadoService } from 'src/app/services/listado.service';
 })
 
 export class ListadoActivosComponent implements OnInit {
+  @ViewChild ("search", {static: false}) search: any
 
-  constructor(private listadoService: ListadoService) {
+  public dataListadoActivos: ListadoActivos[] = [];
+
+
+  public rows: Array<object> = []; 
+  public columns: Array<object> = [];
+  public temp: Array<object> = [];
+  public pedidos: ListadoActivos[] = [];
+  public dataPedidoMostrar: PedidoMostrar[] = [];
+  public rol! : Roles
+  private destroyed$ = new Subject<void>()
+
+  constructor(private listadoService: ListadosService, private modalService: NgbModal) {
 
   }
 
   async ngOnInit() {
-    const response = await this.listadoService.getAll();
+    const response = await this.listadoService.obtenerPedidos().subscribe( pedidos => {
+      this.dataPedidoMostrar = pedidos.map((u) => {
+        const pedido: PedidoMostrar = {
+          referencia: u.referencia,
+          estado: u.estado,
+          fecha_salida: u.fecha_salida,
+          almacen_origen: u.almacen_origen,
+          almacen_destino: u.almacen_destino,
+          matricula: u.matricula
+        }
+        return pedido
+      })
+      this.temp = this.dataPedidoMostrar;
+      this.rows = [...this.temp]
+      console.log(pedidos)
+    });
 
-    console.log(response[0]);
+    this.columns = [ 
+      { prop: "referencia", name: 'Referencia' }, 
+      { prop: "estado", name: 'Estado' }, 
+      { prop: "fecha_salida", name: 'Fecha salida' }, 
+      { prop: "almacen_origen", name: 'Almacen origen' }, 
+      { prop: "almacen_destino", name: 'Almacen destino' }, 
+      { prop: "matricula", name: 'Matrícula' }, 
+      { prop: "acciones", name: 'Acciones'}];
 
   }
 
   crearPedido(){
-/*     const modalRef = this.modalService.open(ModalEditarUsuarioComponent, { centered: true, size: 'lg'});
-    modalRef.componentInstance.almacenes = this.dataAlmacenes
+    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg'});
+    //modalRef.componentInstance.almacenes = this.dataAlmacenes
     modalRef.result.then((result) => {
       if(result){
         console.log("creo")
       }
-    }); */
+    });
+  }
+  
+  editarPedido(pedido: ListadoActivos) {
+
   }
 
-  rows = [
-    { referencia: 'Austin', estado: 'Male', fechaSalida: 'Swimlane', almacenOrigen: 'Swimlane', almacenDestino: 'Swimlane', matricula: 22 },
-    { referencia: 'Dany', estado: 'Male', fechaSalida: 'KFC', almacenOrigen: 'Swimlane', almacenDestino: 'Swimlane', matricula: 'Swimlane'  },
-    { referencia: 'Molly', estado: 'Female', fechaSalida: 'Burger King', almacenOrigen: 'Swimlane', almacenDestino: 'Swimlane', matricula: 'Swimlane'  }
-  ];
-  columns = [{ prop: 'name' }, { name: 'Referencia' }, { name: 'Estado' }, { name: 'Fecha salida' }, 
-             { name: 'Almacen origen' }, { name: 'Almacen destino' }, { name: 'Matrícula' }];
+  ngAfterViewInit(): void {
+    fromEvent(this.search.nativeElement, 'keydown')
+      .pipe(
+        debounceTime(550),
+        map((x:any) => x['target']['value'])
+      )
+      .subscribe((value) => {
+        this.updateFilter(value);
+      });
+  }
+
+  updateFilter(val: any) {
+    const value = val.toString().toLowerCase().trim();
+      const count = this.columns.length;
+      const keys = Object.keys(this.temp[0]);
+      this.rows = this.temp.filter((item:any) => {
+        let shouldFilter = false;
+         for (let i = 0; i <= count; i++) {
+           if (
+             (item[keys[i]] &&
+               item[keys[i]]
+                 .toString()
+                 .toLowerCase()
+                 .indexOf(value) !== -1) ||
+             !value
+           ) {
+            shouldFilter = true
+           }
+         }
+         return shouldFilter
+      });
+  }
 
 }
