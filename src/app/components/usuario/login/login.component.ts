@@ -20,10 +20,6 @@ export class LoginComponent {
     });
   }
 
-  cerrar() {
-    console.log("Cerrar");
-    this.router.navigate(['home']);
-  }
   async onSubmit() {
     const response = await this.usuariosService.login(this.formulario.value);
 
@@ -32,7 +28,6 @@ export class LoginComponent {
       return alert(response.fatal);
     }
 
-    console.log(response);
     localStorage.setItem('token_user', response.token);
     this.usuariosService.changeLogin(true);
 

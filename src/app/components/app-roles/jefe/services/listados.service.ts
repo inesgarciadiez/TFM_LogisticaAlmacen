@@ -17,7 +17,7 @@ export class ListadosService {
       headers: new HttpHeaders ({
           'Authorization': localStorage.getItem('token_user')!
       })
-  }
+    }
     const url = `${environment.apiUrl}/usuarios`
     return this.clientHttp.get<Users[]>(url, httpOptions);
   }
