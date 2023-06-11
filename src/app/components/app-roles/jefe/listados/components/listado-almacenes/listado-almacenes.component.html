@@ -1,1 +1,93 @@
-<p>listado-almacenes works!</p>
+<div class="d-flex flex-row justify-content-sm-between bloque1">
+    <div>
+      <button class="btn btn-guardar btn-sm" (click)="crearUsuario()"><i class="fa-solid fa-user-plus"></i> Almacén</button>
+    </div>
+    <div>
+    <div class="input-group input-group-sm">
+      <input type="text" #search id="search" class="form-control input-buscar border-0" placeholder="Buscar...">
+      <span class="input-group-text border-0 icon-buscar" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
+    </div>
+    </div>
+    
+    </div>
+    
+    <ngx-datatable #table class="bootstrap mb-5 mt-3" [columns]="columns" [headerHeight]="40" [rows]="rows"
+      [columnMode]="'force'" [footerHeight]="40" [limit]="5" rowHeight="auto">
+      <ngx-datatable-column name="Nombre" prop="nombre">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span (click)="sort()">Nombre</span>
+        </ng-template>
+    
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div class="d-flex justify-content-center">
+            {{ value }}
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    
+      <ngx-datatable-column name="Ciudad" prop="ciudad">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span (click)="sort()">Ciudad</span>
+        </ng-template>
+    
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div class="d-flex justify-content-center">
+            {{ value }}
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    
+      <ngx-datatable-column name="Dirección" prop="direccion">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span (click)="sort()">Dirección</span>
+        </ng-template>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div class="d-flex justify-content-center">
+            {{ value }}
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    
+      <ngx-datatable-column name="Código Postal" prop="codigo_postal">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span (click)="sort()">Código Postal</span>
+        </ng-template>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <div class="d-flex justify-content-center">
+                {{ value }}
+        </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Responsable" prop="name_responsable">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span (click)="sort()">Responsable</span>
+        </ng-template>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <div class="d-flex justify-content-center">
+                {{ value }}
+        </div>
+        </ng-template>
+      </ngx-datatable-column>
+    
+      <ngx-datatable-column name="acciones" [sortable]="false" prop="name">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <div class="acciones-span">
+            <span>Acciones</span>
+          </div>
+        </ng-template>
+    
+        <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+          <div class="text-center">
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="button" class="btn btn-edit" (click)="editarAlmacen(row)">
+                <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              </button>
+              <button type="button" class="btn btn-trash">
+                <i class="fa-solid fa-trash-can fa-lg"></i>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+    

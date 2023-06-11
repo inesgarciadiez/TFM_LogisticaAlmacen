@@ -6,6 +6,8 @@ import { JefeRoutingModule } from './jefe-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
+
+
 //Components
 import { ListadosComponent } from './listados/listados.component';
 import { ListadoUsuariosComponent } from './listados/components/listado-usuarios/listado-usuarios.component';
@@ -13,6 +15,7 @@ import { ModalEditarUsuarioComponent } from './listados/components/listado-usuar
 import { ModalEliminarUsuarioComponent } from './listados/components/listado-usuarios/components/modal-eliminar-usuario/modal-eliminar-usuario.component';
 import { ListadoAlmacenesComponent } from './listados/components/listado-almacenes/listado-almacenes.component';
 import { ListadosService } from './services/listados.service';
+import { ModalEditarAlmacenComponent } from './listados/components/listado-almacenes/components/modal-editar-almacen/modal-editar-almacen.component';
 
 
 
@@ -23,6 +26,7 @@ import { ListadosService } from './services/listados.service';
     ModalEditarUsuarioComponent,
     ModalEliminarUsuarioComponent,
     ListadoAlmacenesComponent,
+    ModalEditarAlmacenComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,7 @@ import { ListadosService } from './services/listados.service';
     HttpClientModule
   ],
   providers:[
-    ListadosService
+    ListadosService,
   ]
 })
 export class JefeModule { }

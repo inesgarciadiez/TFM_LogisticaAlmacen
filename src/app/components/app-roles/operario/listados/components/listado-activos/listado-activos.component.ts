@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {  AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ListadoActivos } from '../../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-alta-pedido.component';
 import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
 import { Roles } from 'src/app/shared/rol-enum';
+import { ListadoService } from 'src/app/services/listado.service'; 
 import { ListadosService } from '../../../services/listados.service';
+
 
 @Component({
   selector: 'app-listado-activos',
@@ -13,7 +15,7 @@ import { ListadosService } from '../../../services/listados.service';
   styleUrls: ['./listado-activos.component.css']
 })
 
-export class ListadoActivosComponent implements OnInit {
+export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild ("search", {static: false}) search: any
 
   public dataListadoActivos: ListadoActivos[] = [];
@@ -23,7 +25,6 @@ export class ListadoActivosComponent implements OnInit {
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public pedidos: ListadoActivos[] = [];
-  public dataPedidoMostrar: PedidoMostrar[] = [];
   public rol! : Roles
   private destroyed$ = new Subject<void>()
 
@@ -31,32 +32,22 @@ export class ListadoActivosComponent implements OnInit {
 
   }
 
-  async ngOnInit() {
-    const response = await this.listadoService.obtenerPedidos().subscribe( pedidos => {
-      this.dataPedidoMostrar = pedidos.map((u) => {
-        const pedido: PedidoMostrar = {
-          referencia: u.referencia,
-          estado: u.estado,
-          fecha_salida: u.fecha_salida,
-          almacen_origen: u.almacen_origen,
-          almacen_destino: u.almacen_destino,
-          matricula: u.matricula
-        }
-        return pedido
-      })
-      this.temp = this.dataPedidoMostrar;
+ ngOnInit() {
+  this.columns = [ 
+    { prop: "referencia", name: 'Referencia' }, 
+    { prop: "estado", name: 'Estado' }, 
+    { prop: "fecha_salida", name: 'Fecha salida' }, 
+    { prop: "almacen_origen", name: 'Almacen origen' }, 
+    { prop: "almacen_destino", name: 'Almacen destino' }, 
+    { prop: "matricula", name: 'Matrícula' }
+  ]
+    this.listadoService.obtenerPedidos().subscribe( pedidos => {
+      this.pedidos = pedidos
+      this.temp = this.pedidos;
       this.rows = [...this.temp]
-      console.log(pedidos)
     });
 
-    this.columns = [ 
-      { prop: "referencia", name: 'Referencia' }, 
-      { prop: "estado", name: 'Estado' }, 
-      { prop: "fecha_salida", name: 'Fecha salida' }, 
-      { prop: "almacen_origen", name: 'Almacen origen' }, 
-      { prop: "almacen_destino", name: 'Almacen destino' }, 
-      { prop: "matricula", name: 'Matrícula' }, 
-      { prop: "acciones", name: 'Acciones'}];
+    
 
   }
 
@@ -84,7 +75,7 @@ export class ListadoActivosComponent implements OnInit {
         this.updateFilter(value);
       });
   }
-
+  
   updateFilter(val: any) {
     const value = val.toString().toLowerCase().trim();
       const count = this.columns.length;
@@ -106,5 +97,10 @@ export class ListadoActivosComponent implements OnInit {
          return shouldFilter
       });
   }
+
+ ngOnDestroy(): void {
+  this.destroyed$.next();
+  this.destroyed$.complete();
+ }
 
 }

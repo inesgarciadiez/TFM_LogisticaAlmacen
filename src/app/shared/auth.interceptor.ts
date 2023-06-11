@@ -14,9 +14,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
+    if (req.url.includes('home') || req.url.includes('login')) {
+      return next.handle(req);
+    }
     
-    
-    const token = localStorage.getItem('token')!;
+    const token = localStorage.getItem('token_user')!;
     // Verifica si el encabezado de autorización ya está presente en la solicitud
     if (!req.headers.has('authorization')) {
       // Agrega el encabezado de autorización solo si no está presente

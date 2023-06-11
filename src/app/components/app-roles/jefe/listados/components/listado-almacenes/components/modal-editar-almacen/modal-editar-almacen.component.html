@@ -1,0 +1,41 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+    <div class="modal-content border-0 modal-fondo">
+        <div class="modal-header custom">
+          <h6 class="modal-title" *ngIf="almacen != undefined">EDITAR ALMACÉN</h6>
+          <h6 class="modal-title" *ngIf="almacen == undefined">NUEVO ALMACÉN</h6>
+        </div>
+        <div class="modal-body p-modal">
+            <h6 class="ms-4" *ngIf="almacen != undefined">FORMULARIO EDITAR ALMACÉN</h6>
+            <h6 class="ms-4" *ngIf="almacen == undefined">FORMULARIO NUEVO ALMACÉN</h6>
+             <div class="flex-row d-flex justify-content-around mb-4 mt-5">
+                <div class="col-md-3">
+                    <label for="ciudad" class="form-label">Ciudad</label>
+                    <input type="text" formControlName="ciudad" class="form-control border-0 sombras" id="ciudad">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" formControlName="direccion" class="form-control border-0 sombras" id="direccion">
+                  </div>
+                  <div class="col-md-2">
+                    <label for="codigo_postal" class="form-label">Código Postal</label>
+                    <input type="email" formControlName="codigo_postal" class="form-control border-0 sombras" id="codigo_postal">
+                  </div>
+                </div>
+               <div class="flex-row mb-5 mt-3 d-flex justify-content-around">
+                  <div class="col-md-5">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" formControlName="nombre" class="form-control border-0 sombras" id="nombre">
+                  </div>
+                  <div class="col-md-5">
+                        <label for="responsable" class="form-label">Responsable</label> 
+                        <ng-select #select formControlName="responsable"  [items]="usuarios" bindLabel="nombre"></ng-select>
+                </div>
+                </div>
+        </div>
+        <div class="flex-row d-flex justify-content-end gap-2 footer-modal">
+            <button type="submit" class="btn btn-guardar"> <i class="fa-solid fa-lg fa-floppy-disk"></i> Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="activeModal.close(null)">Cancelar</button>
+        </div>
+      </div>
+</form>
+
