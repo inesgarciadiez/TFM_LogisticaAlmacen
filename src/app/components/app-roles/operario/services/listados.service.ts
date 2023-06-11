@@ -12,12 +12,8 @@ export class ListadosService {
   constructor( private clientHttp:HttpClient ) { }
 
   obtenerPedidos(): Observable<ListadoActivos[]>{
-    const httpOptions = {
-      headers: new HttpHeaders ({
-          'Authorization': localStorage.getItem('token_user')!
-      })
-    }
+
     const url = `${environment.apiUrl}/pedidos/operario`
-    return this.clientHttp.get<ListadoActivos[]>(url, httpOptions);
+    return this.clientHttp.get<ListadoActivos[]>(url);
   }
 }

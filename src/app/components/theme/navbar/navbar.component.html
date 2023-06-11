@@ -10,15 +10,15 @@
         <a class="nav-link especial btn" routerLinkActive="active" [routerLink]="['/home']">Home</a>
       </li>
       <li *ngIf="estaHome() || estaLogin()" class="nav-item nav">
-        <button type="button" class="btn login" data-bs-toggle="modal" data-bs-target="#exampleModal" [routerLink]="['/login']">
+        <button type="button" class="btn login" (click)="abrirLogin()">
             <i class="fa-solid fa-right-to-bracket"></i> Login
         </button>
       </li>
-      <li *ngIf="!estaHome() && !estaLogin()" class="nav-item nav">
+      <!-- <li *ngIf="!estaHome() && !estaLogin()" class="nav-item nav">
         <button type="button" class="btn login" data-bs-toggle="modal" data-bs-target="#exampleModal" [routerLink]="['/home']">
           <i class="fa-solid fa-right-from-bracket"></i> Logout
         </button>
-      </li>
+      </li> -->
     </ul>
   </div>
 </nav>

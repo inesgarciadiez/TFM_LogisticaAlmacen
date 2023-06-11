@@ -1,8 +1,9 @@
-export interface Almacenes {
+export interface AlmacenesMostrar {
     direccion: string,
     ciudad: string,
     codigo_postal:number,
     nombre: string,
-    responsable_id: number,
+    name_responsable: string,
+    id_responsable? : number,
     id?:number
 }
