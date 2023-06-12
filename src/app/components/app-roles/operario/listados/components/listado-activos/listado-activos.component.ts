@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ListadoActivos } from '../../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-alta-pedido.component';
 import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
-import { Roles } from 'src/app/shared/rol-enum';
 import { ListadosService } from '../../../services/listados.service';
 
 @Component({
@@ -13,18 +12,13 @@ import { ListadosService } from '../../../services/listados.service';
   styleUrls: ['./listado-activos.component.css']
 })
 
-export class ListadoActivosComponent implements OnInit {
+export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild ("search", {static: false}) search: any
-
-  public dataListadoActivos: ListadoActivos[] = [];
-
-
   public rows: Array<object> = []; 
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public pedidos: ListadoActivos[] = [];
   public dataPedidoMostrar: PedidoMostrar[] = [];
-  public rol! : Roles
   private destroyed$ = new Subject<void>()
 
   constructor(private listadoService: ListadosService, private modalService: NgbModal) {
@@ -46,7 +40,6 @@ export class ListadoActivosComponent implements OnInit {
       })
       this.temp = this.dataPedidoMostrar;
       this.rows = [...this.temp]
-      console.log(pedidos)
     });
 
     this.columns = [ 
@@ -106,5 +99,10 @@ export class ListadoActivosComponent implements OnInit {
          return shouldFilter
       });
   }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+   }
 
 }
