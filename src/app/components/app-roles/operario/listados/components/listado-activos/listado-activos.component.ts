@@ -6,6 +6,7 @@ import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
 import { ListadosService } from '../../../services/listados.service';
 
+
 @Component({
   selector: 'app-listado-activos',
   templateUrl: './listado-activos.component.html',
@@ -25,32 +26,27 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
 
   }
 
-  async ngOnInit() {
-    const response = await this.listadoService.obtenerPedidos().subscribe( pedidos => {
-      this.dataPedidoMostrar = pedidos.map((u) => {
-        const pedido: PedidoMostrar = {
-          referencia: u.referencia,
-          estado: u.estado,
-          fecha_salida: u.fecha_salida,
-          almacen_origen: u.almacen_origen,
-          almacen_destino: u.almacen_destino,
-          matricula: u.matricula
+ ngOnInit() {
+  this.columns = [ 
+    { prop: "referencia", name: 'Referencia' }, 
+    { prop: "estado", name: 'Estado' }, 
+    { prop: "fecha_salida", name: 'Fecha salida' }, 
+    { prop: "almacen_origen", name: 'Almacen origen' }, 
+    { prop: "almacen_destino", name: 'Almacen destino' }, 
+    { prop: "matricula", name: 'Matrícula' }
+  ]
+    this.listadoService.obtenerPedidos().subscribe( pedidos => {
+      for (let i = 0; i < pedidos.length ; i++)
+      {
+        if (pedidos[i].estado.includes("CERRADO") == false) {
+          this.pedidos.push(pedidos[i])
+          this.temp = this.pedidos;
+          this.rows = [...this.temp]
+
         }
-        return pedido
-      })
-      this.temp = this.dataPedidoMostrar;
-      this.rows = [...this.temp]
+
+      }
     });
-
-    this.columns = [ 
-      { prop: "referencia", name: 'Referencia' }, 
-      { prop: "estado", name: 'Estado' }, 
-      { prop: "fecha_salida", name: 'Fecha salida' }, 
-      { prop: "almacen_origen", name: 'Almacen origen' }, 
-      { prop: "almacen_destino", name: 'Almacen destino' }, 
-      { prop: "matricula", name: 'Matrícula' }, 
-      { prop: "acciones", name: 'Acciones'}];
-
   }
 
   crearPedido(){
@@ -77,7 +73,7 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
         this.updateFilter(value);
       });
   }
-
+  
   updateFilter(val: any) {
     const value = val.toString().toLowerCase().trim();
       const count = this.columns.length;

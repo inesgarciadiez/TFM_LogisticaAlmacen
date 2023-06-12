@@ -12,23 +12,9 @@ export class ListadosService {
   constructor( private clientHttp:HttpClient ) { }
 
   obtenerPedidos(): Observable<ListadoActivos[]>{
-    const httpOptions = {
-      headers: new HttpHeaders ({
-          'Authorization': localStorage.getItem('token_user')!
-      })
-    }
-    const url = `${environment.apiUrl}/pedidos/operario`
-    return this.clientHttp.get<ListadoActivos[]>(url, httpOptions);
-  }
 
-  obtenerPedidosCerrados(): Observable<ListadoActivos[]>{
-    const httpOptions = {
-      headers: new HttpHeaders ({
-          'Authorization': localStorage.getItem('token_user')!
-      })
-    }
-    const url = `${environment.apiUrl}/pedidos/operario/7`
-    return this.clientHttp.get<ListadoActivos[]>(url, httpOptions);
+    const url = `${environment.apiUrl}/pedidos/operario`
+    return this.clientHttp.get<ListadoActivos[]>(url);
   }
 
   addPedido(newOrder:ListadoActivos) {

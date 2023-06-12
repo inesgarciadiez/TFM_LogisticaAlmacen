@@ -1,11 +1,8 @@
-
-import { Almacenes } from "./almacenes.interface"
-
 export interface Users {
     nombre: string,
     apellido:string,
-    rol_id: number,
+    rol: string,
     email:string,
-    contraseña:string
-    almacen?: Almacenes
+    password:string,
+    id?:number
 }

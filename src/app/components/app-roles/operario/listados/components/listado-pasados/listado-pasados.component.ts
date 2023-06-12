@@ -24,29 +24,20 @@ export class ListadoPasadosComponent implements OnInit, OnDestroy, AfterViewInit
 
   }
 
-  async ngOnInit() {
-    const response = await this.listadoService.obtenerPedidos().subscribe( pedidos => {
-      
-      this.dataPedidoMostrar = pedidos.map((u) => {
-        if (u.estado != "CERRADO") {
-          console.log("CERRAADDDOOOO")
-          this.temp = this.dataPedidoMostrar;
-          this.rows = [...this.temp]
+  ngOnInit() {
+    const response = this.listadoService.obtenerPedidos().subscribe( pedidos => {
+      this.listadoService.obtenerPedidos().subscribe( pedidos => {
+        for (let i = 0; i < pedidos.length ; i++)
+        {
+          if (pedidos[i].estado.includes("CERRADO") == true) {
+              this.pedidos.push(pedidos[i])
+            this.temp = this.pedidos;
+            this.rows = [...this.temp]
+  
+          }
+  
         }
-        const pedido: PedidoMostrar = {
-          referencia: u.referencia,
-          estado: u.estado,
-          fecha_salida: u.fecha_salida,
-          almacen_origen: u.almacen_origen,
-          almacen_destino: u.almacen_destino,
-          matricula: u.matricula
-        }
-        return pedido
-      })
-
-      this.temp = this.dataPedidoMostrar;
-      this.rows = [...this.temp]
-      console.log(pedidos)
+      });
     });
 
     this.columns = [ 
