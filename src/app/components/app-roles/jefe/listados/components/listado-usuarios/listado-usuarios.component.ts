@@ -12,20 +12,17 @@ import { Roles } from 'src/app/shared/rol-enum';
   templateUrl: './listado-usuarios.component.html',
   styleUrls: ['./listado-usuarios.component.css']
 })
-export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit {
-  @ViewChild ("search", {static: false}) search: any
-  public rows: Array<object> = []; 
+export class ListadoUsuariosComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild("search", { static: false }) search: any
+  public rows: Array<object> = [];
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public usuarios: Users[] = [];
   public dataUserMostrar: UsersMostrar[] = [];
-  public rol! : Roles
+  public rol!: Roles
   private destroyed$ = new Subject<void>()
   
-
-
-
-  constructor(private modalService: NgbModal, private listadosService: ListadosService){}
+  constructor(private modalService: NgbModal, private listadosService: ListadosService) { }
 
   ngOnInit() {
     this.listadosService.obtenerUsuarios().subscribe( usuarios => {
@@ -50,13 +47,14 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
         { prop: "contraseña", name: "Contraseña" },
       ]
   }
-  editarUsuario(usuario: Users){
 
-    const modalRef = this.modalService.open(ModalEditarUsuarioComponent, { centered: true, size: 'lg'});
+  editarUsuario(usuario: Users) {
+
+    const modalRef = this.modalService.open(ModalEditarUsuarioComponent, { centered: true, size: 'lg' });
     modalRef.componentInstance.usuario = usuario
     
     modalRef.result.then((result) => {
-      if(result){
+      if (result) {
         console.log("edito")
       }
     });
@@ -65,56 +63,56 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
     const modalRef = this.modalService.open(ModalEditarUsuarioComponent, { centered: true, size: 'lg'});
  
     modalRef.result.then((result) => {
-      if(result){
+      if (result) {
         console.log("creo")
       }
     });
   }
-    eliminarUsuario(usuario: Users){
-      const modalRef = this.modalService.open(ModalEliminarUsuarioComponent, { centered: true});
+  eliminarUsuario(usuario: Users) {
+    const modalRef = this.modalService.open(ModalEliminarUsuarioComponent, { centered: true });
     modalRef.result.then((result) => {
-      if(result){
+      if (result) {
         console.log("elimino")
       }
     });
-    }
+  }
 
-    ngAfterViewInit(): void {
-      fromEvent(this.search.nativeElement, 'keydown')
-        .pipe(
-          debounceTime(550),
-          map((x:any) => x['target']['value'])
-        )
-        .subscribe((value) => {
-          this.updateFilter(value);
-        });
-    }
-    
-    updateFilter(val: any) {
-      const value = val.toString().toLowerCase().trim();
-        const count = this.columns.length;
-        const keys = Object.keys(this.temp[0]);
-        this.rows = this.temp.filter((item:any) => {
-          let shouldFilter = false;
-           for (let i = 0; i <= count; i++) {
-             if (
-               (item[keys[i]] &&
-                 item[keys[i]]
-                   .toString()
-                   .toLowerCase()
-                   .indexOf(value) !== -1) ||
-               !value
-             ) {
-              shouldFilter = true
-             }
-           }
-           return shouldFilter
-        });
-    }
+  ngAfterViewInit(): void {
+    fromEvent(this.search.nativeElement, 'keydown')
+      .pipe(
+        debounceTime(550),
+        map((x: any) => x['target']['value'])
+      )
+      .subscribe((value) => {
+        this.updateFilter(value);
+      });
+  }
 
-   ngOnDestroy(): void {
+  updateFilter(val: any) {
+    const value = val.toString().toLowerCase().trim();
+    const count = this.columns.length;
+    const keys = Object.keys(this.temp[0]);
+    this.rows = this.temp.filter((item: any) => {
+      let shouldFilter = false;
+      for (let i = 0; i <= count; i++) {
+        if (
+          (item[keys[i]] &&
+            item[keys[i]]
+              .toString()
+              .toLowerCase()
+              .indexOf(value) !== -1) ||
+          !value
+        ) {
+          shouldFilter = true
+        }
+      }
+      return shouldFilter
+    });
+  }
+
+  ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
-   }
+  }
 
 }
