@@ -3,7 +3,6 @@ import { Users, UsersMostrar, Almacenes } from 'src/app/interfaces';
 import { ModalEditarUsuarioComponent } from './components/modal-editar-usuario/modal-editar-usuario.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, debounceTime, fromEvent, map } from 'rxjs';
-import { ModalEliminarUsuarioComponent } from './components/modal-eliminar-usuario/modal-eliminar-usuario.component';
 import { ListadosService } from '../../../services/listados.service';
 import { Roles } from 'src/app/shared/rol-enum';
 
@@ -69,12 +68,7 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy, AfterViewIni
     });
   }
   eliminarUsuario(usuario: Users) {
-    const modalRef = this.modalService.open(ModalEliminarUsuarioComponent, { centered: true });
-    modalRef.result.then((result) => {
-      if (result) {
-        console.log("elimino")
-      }
-    });
+
   }
 
   ngAfterViewInit(): void {

@@ -5,6 +5,7 @@ import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-a
 import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
 import { ListadosService } from '../../../services/listados.service';
+import { ModalEliminarPedidoComponent } from 'src/app/components/app-roles/operario/listados/components/listado-activos/components/modal-eliminar-pedido/modal-eliminar-pedido.component';
 
 
 @Component({
@@ -33,7 +34,9 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
     { prop: "fecha_salida", name: 'Fecha salida' }, 
     { prop: "almacen_origen", name: 'Almacen origen' }, 
     { prop: "almacen_destino", name: 'Almacen destino' }, 
-    { prop: "matricula", name: 'Matrícula' }
+    { prop: "matricula", name: 'Matrícula' },
+    { prop: "detalles", name: 'Detalles' }
+
   ]
     this.listadoService.obtenerPedidos().subscribe( pedidos => {
       for (let i = 0; i < pedidos.length ; i++)
@@ -51,7 +54,6 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
 
   crearPedido(){
     const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg'});
-    //modalRef.componentInstance.almacenes = this.dataAlmacenes
     modalRef.result.then((result) => {
       if(result){
         console.log("creo")
@@ -60,7 +62,19 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
   }
   
   editarPedido(pedido: ListadoActivos) {
+    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg' });
+    modalRef.componentInstance.pedido = pedido
+    
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log("edito")
+      }
+    });
+  }
 
+  eliminarPedido(pedido: ListadoActivos) {
+    const modalRef = this.modalService.open(ModalEliminarPedidoComponent, { centered: true });
+    modalRef.componentInstance.pedido = pedido
   }
 
   ngAfterViewInit(): void {
