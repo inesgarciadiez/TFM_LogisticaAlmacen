@@ -31,7 +31,7 @@ export class ModalEditarUsuarioComponent implements OnInit, OnDestroy {
         apellidos: [nombre[1]],
         correo: [{value: this.usuario.email, disabled:true}],
         rol: [this.usuario.rol],
-        contrasena: [null],
+        contrasena: [null]
       })
 
     }else{
