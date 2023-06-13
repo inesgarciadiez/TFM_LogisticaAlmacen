@@ -1,1 +1,1 @@
-export * from './pedidos.interface';
+export * from '../../../../interfaces/pedidos.interface';

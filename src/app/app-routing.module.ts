@@ -14,7 +14,12 @@ const routes: Routes = [
   { 
     path:"operario",
     loadChildren: ()=> import("./components/app-roles/operario/operario.module").then((m)=> m.OperarioModule)
+  },
+  {
+    path:"encargado",
+    loadChildren: ()=> import("./components/app-roles/encargado/encargado.module").then((m) => m.EncargadoModule)
   }
+
 ];
 
 @NgModule({

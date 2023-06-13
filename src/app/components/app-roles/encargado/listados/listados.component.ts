@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-listados',
-  templateUrl: './listados.component.html',
-  styleUrls: ['./listados.component.css']
+  templateUrl: '../listados/listados.component.html',
+  styleUrls: ['../listados/listados.component.css']
 })
 export class ListadosComponent implements OnInit, OnDestroy{
 

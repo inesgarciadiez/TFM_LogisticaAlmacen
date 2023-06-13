@@ -34,14 +34,14 @@ export class LoginComponent {
     if (response.rol === 1)
     {
       this.router.navigate(['listados/listado-activos']);
-
     }
     else if (response.rol === 3)
     {
       this.router.navigate(['listados/listado-usuarios']);
     }
-    else {
-
+    else if (response.rol === 2)
+    {
+      this.router.navigate(['listados/listado-pedidos']);
     }
   }
 }

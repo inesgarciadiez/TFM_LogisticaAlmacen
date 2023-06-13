@@ -20,8 +20,7 @@ import { EncargadoModule } from './components/app-roles/encargado/encargado.modu
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    HomeComponent,
-    LoginComponent
+    HomeComponent
   ],
   imports: [
     ReactiveFormsModule,

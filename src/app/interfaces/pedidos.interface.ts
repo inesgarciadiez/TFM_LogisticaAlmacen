@@ -1,8 +1,8 @@
 export interface PedidosInterface {
-    referencia: number,
-    estado:string,
+    id: number,
+    fecha_creacion:string,
     fecha_salida:string,
-    almacen_origen:string,
+    detalles:string,
     almacen_destino: string,
     matricula: string
 }
