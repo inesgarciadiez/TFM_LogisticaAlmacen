@@ -12,7 +12,7 @@ import { JefeModule } from './components/app-roles/jefe/jefe.module';
 import { HomeComponent } from './components/theme/home/home.component';
 import { LoginComponent } from './components/usuario/login/login.component';
 import { OperarioModule } from './components/app-roles/operario/operario.module';
-import { EncargadoModule } from './components/app-roles/encargado.module';
+import { EncargadoModule } from './components/app-roles/encargado/encargado.module';
 
 @NgModule({
   declarations: [
