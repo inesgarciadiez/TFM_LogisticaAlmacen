@@ -32,7 +32,6 @@ export class ListadoPedidosComponent {
      const response = await this.listadoService.obtenerPedidos().subscribe( pedidos => {
       this.dataPedidoMostrar = pedidos.map((u) => {
         const pedido: PedidosInterface = {
-          id: u.id,
           fecha_creacion: u.fecha_creacion,
           fecha_salida: u.fecha_salida,
           detalles: u.detalles,
@@ -47,12 +46,11 @@ export class ListadoPedidosComponent {
     });
 
     this.columns = [ 
-      { prop: "id", name: 'Id' }, 
       { prop: "fecha_creacion", name: 'Fecha Creación' }, 
       { prop: "fecha_salida", name: 'Fecha salida' }, 
       { prop: "detalles", name: 'Detalles' }, 
       { prop: "matricula", name: 'Matrícula' }, 
-      { prop: "acciones", name: 'Acciones'}];
-
+      { prop: "acciones", name: 'Acciones'},
+      { prop: "comentario_error", name: 'Comentario Error' }];
   }
 }
