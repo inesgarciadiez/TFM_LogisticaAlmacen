@@ -12,7 +12,7 @@
 </div>
 
 <ngx-datatable #table class="bootstrap mb-5 mt-3" [columns]="columns" [headerHeight]="40" [rows]="rows"
-  [columnMode]="'force'" [footerHeight]="40" [limit]="10" rowHeight="auto">
+  [columnMode]="'force'" [footerHeight]="40" [limit]="5" rowHeight="auto">
   <ngx-datatable-column name="Nombre" prop="nombre">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
       <span (click)="sort()">Nombre</span>

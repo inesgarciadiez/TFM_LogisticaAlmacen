@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -8,16 +9,21 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-  formulario: FormGroup;
+  public formulario!: FormGroup;
 
-  constructor(private usuariosService: UsuariosService,
-              private router: Router) {
-    this.formulario = new FormGroup({
-      email: new FormControl(),
-      password: new FormControl()
-    });
+  constructor(private usuariosService: UsuariosService, private fb: FormBuilder,
+              private router: Router, public activeModal: NgbActiveModal) {
+   
+  }
+
+
+  ngOnInit(): void {
+   this.formulario = this.fb.group({
+     email: [],
+     password: []
+   });    
   }
 
   async onSubmit() {
@@ -43,5 +49,6 @@ export class LoginComponent {
     {
       this.router.navigate(['listados/listado-pedidos']);
     }
+    this.activeModal.close(true)
   }
 }

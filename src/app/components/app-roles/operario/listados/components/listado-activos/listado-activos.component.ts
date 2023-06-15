@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ListadoActivos } from '../../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-alta-pedido.component';
 import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
-import { Roles } from 'src/app/shared/rol-enum';
 import { ListadosService } from '../../../services/listados.service';
+import { ModalEliminarPedidoComponent } from 'src/app/components/app-roles/operario/listados/components/listado-activos/components/modal-eliminar-pedido/modal-eliminar-pedido.component';
+
 
 @Component({
   selector: 'app-listado-activos',
@@ -13,56 +14,46 @@ import { ListadosService } from '../../../services/listados.service';
   styleUrls: ['./listado-activos.component.css']
 })
 
-export class ListadoActivosComponent implements OnInit {
+export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild ("search", {static: false}) search: any
-
-  public dataListadoActivos: ListadoActivos[] = [];
-
-
   public rows: Array<object> = []; 
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public pedidos: ListadoActivos[] = [];
   public dataPedidoMostrar: PedidoMostrar[] = [];
-  public rol! : Roles
   private destroyed$ = new Subject<void>()
 
   constructor(private listadoService: ListadosService, private modalService: NgbModal) {
 
   }
 
-  async ngOnInit() {
-    const response = await this.listadoService.obtenerPedidos().subscribe( pedidos => {
-      this.dataPedidoMostrar = pedidos.map((u) => {
-        const pedido: PedidoMostrar = {
-          referencia: u.referencia,
-          estado: u.estado,
-          fecha_salida: u.fecha_salida,
-          almacen_origen: u.almacen_origen,
-          almacen_destino: u.almacen_destino,
-          matricula: u.matricula
+ ngOnInit() {
+  this.columns = [ 
+    { prop: "referencia", name: 'Referencia' }, 
+    { prop: "estado", name: 'Estado' }, 
+    { prop: "fecha_salida", name: 'Fecha salida' }, 
+    { prop: "almacen_origen", name: 'Almacen origen' }, 
+    { prop: "almacen_destino", name: 'Almacen destino' }, 
+    { prop: "matricula", name: 'Matrícula' },
+    { prop: "detalles", name: 'Detalles' }
+
+  ]
+    this.listadoService.obtenerPedidos().subscribe( pedidos => {
+      for (let i = 0; i < pedidos.length ; i++)
+      {
+        if (pedidos[i].estado.includes("CERRADO") == false) {
+          this.pedidos.push(pedidos[i])
+          this.temp = this.pedidos;
+          this.rows = [...this.temp]
+
         }
-        return pedido
-      })
-      this.temp = this.dataPedidoMostrar;
-      this.rows = [...this.temp]
-      console.log(pedidos)
+
+      }
     });
-
-    this.columns = [ 
-      { prop: "referencia", name: 'Referencia' }, 
-      { prop: "estado", name: 'Estado' }, 
-      { prop: "fecha_salida", name: 'Fecha salida' }, 
-      { prop: "almacen_origen", name: 'Almacen origen' }, 
-      { prop: "almacen_destino", name: 'Almacen destino' }, 
-      { prop: "matricula", name: 'Matrícula' }, 
-      { prop: "acciones", name: 'Acciones'}];
-
   }
 
   crearPedido(){
     const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg'});
-    //modalRef.componentInstance.almacenes = this.dataAlmacenes
     modalRef.result.then((result) => {
       if(result){
         console.log("creo")
@@ -71,7 +62,19 @@ export class ListadoActivosComponent implements OnInit {
   }
   
   editarPedido(pedido: ListadoActivos) {
+    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg' });
+    modalRef.componentInstance.pedido = pedido
+    
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log("edito")
+      }
+    });
+  }
 
+  eliminarPedido(pedido: ListadoActivos) {
+    const modalRef = this.modalService.open(ModalEliminarPedidoComponent, { centered: true });
+    modalRef.componentInstance.pedido = pedido
   }
 
   ngAfterViewInit(): void {
@@ -84,7 +87,7 @@ export class ListadoActivosComponent implements OnInit {
         this.updateFilter(value);
       });
   }
-
+  
   updateFilter(val: any) {
     const value = val.toString().toLowerCase().trim();
       const count = this.columns.length;
@@ -106,5 +109,10 @@ export class ListadoActivosComponent implements OnInit {
          return shouldFilter
       });
   }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+   }
 
 }

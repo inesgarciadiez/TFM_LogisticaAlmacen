@@ -1,12 +1,12 @@
 footer{
-    background-color: #1B2540; 
-    padding: 30px;
-    text-align: center;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    position: sticky;
+  background-color: #1B2540; 
+  padding: 30px;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  position: sticky;
 }
 .copy{
     color: antiquewhite;
