@@ -26,8 +26,7 @@ export class ListadosService {
     const url = `${environment.apiUrl}/pedidos/${pId}`;
     return this.clientHttp.get<ListadoActivos[]>(url, httpOptions);
   }
-}
-
+  
   addPedido(newOrder:ListadoActivos) {
     console.log(newOrder)
     const httpOptions = {
