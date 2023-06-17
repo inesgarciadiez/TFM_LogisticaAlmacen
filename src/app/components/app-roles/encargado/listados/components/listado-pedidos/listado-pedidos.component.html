@@ -1,18 +1,18 @@
 <div class="d-flex flex-row justify-content-sm-between bloque1">
     <div>
-      <button (click)="crearPedido()" class="btn btn-guardar btn-sm"><i class="fa-solid fa-user-plus"></i> Pedido</button>
+      <button class="btn btn-guardar btn-sm" ><i class="fa-regular fa-folder-plus"></i> Pedido</button>
     </div>
     <div>
-      <div class="input-group input-group-sm">
-        <input type="text" #search id="search" class="form-control input-buscar border-0" placeholder="Buscar...">
-        <span class="input-group-text border-0 icon-buscar" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
-      </div>
+    <div class="input-group input-group-sm">
+      <input type="text" #search id="search" class="form-control input-buscar border-0" placeholder="Buscar...">
+      <span class="input-group-text border-0 icon-buscar" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
+    </div>
     </div>
     
 </div>
 
 <ngx-datatable #table class="bootstrap mb-5 mt-3" [columns]="columns" [headerHeight]="40" [rows]="rows"
-  [columnMode]="'force'" [footerHeight]="40" [limit]="5" rowHeight="auto">
+  [columnMode]="'force'" [footerHeight]="40" [limit]="10" rowHeight="auto">
   <ngx-datatable-column name="Referencia" prop="referencia">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
       <span (click)="sort()">Referencia</span>
@@ -54,7 +54,7 @@
     </ng-template>
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="d-flex justify-content-center">
-          {{ value }}
+      <input type="password" [value]="value" id="pass" disabled>
     </div>
     </ng-template>
   </ngx-datatable-column>
@@ -66,7 +66,7 @@
     </ng-template>
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="d-flex justify-content-center">
-          {{ value }}
+      <input type="password" [value]="value" id="pass" disabled>
     </div>
     </ng-template>
   </ngx-datatable-column>
@@ -78,7 +78,7 @@
     </ng-template>
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="d-flex justify-content-center">
-          {{ value }}
+      <input type="password" [value]="value" id="pass" disabled>
     </div>
     </ng-template>
   </ngx-datatable-column>
@@ -93,10 +93,10 @@
     <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
       <div class="text-center">
         <div class="btn-group btn-group-sm" role="group">
-          <button type="button" class="btn btn-edit" (click)="editarPedido(row)">
+          <button type="button" class="btn btn-edit">
             <i class="fa-solid fa-pen-to-square fa-lg"></i>
           </button>
-          <button type="button" class="btn btn-trash" (click)="eliminarPedido(row)">
+          <button type="button" class="btn btn-trash">
             <i class="fa-solid fa-trash-can fa-lg"></i>
           </button>
         </div>

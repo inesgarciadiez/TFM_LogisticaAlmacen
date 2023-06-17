@@ -3,7 +3,6 @@ import { Users, UsersMostrar, Almacenes } from 'src/app/interfaces';
 import { ModalEditarUsuarioComponent } from './components/modal-editar-usuario/modal-editar-usuario.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, debounceTime, fromEvent, map } from 'rxjs';
-import { ModalEliminarUsuarioComponent } from './components/modal-eliminar-usuario/modal-eliminar-usuario.component';
 import { ListadosService } from '../../../services/listados.service';
 import { Roles } from 'src/app/shared/rol-enum';
 
@@ -12,20 +11,17 @@ import { Roles } from 'src/app/shared/rol-enum';
   templateUrl: './listado-usuarios.component.html',
   styleUrls: ['./listado-usuarios.component.css']
 })
-export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit {
-  @ViewChild ("search", {static: false}) search: any
-  public rows: Array<object> = []; 
+export class ListadoUsuariosComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild("search", { static: false }) search: any
+  public rows: Array<object> = [];
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public usuarios: Users[] = [];
   public dataUserMostrar: UsersMostrar[] = [];
-  public rol! : Roles
+  public rol!: Roles
   private destroyed$ = new Subject<void>()
   
-
-
-
-  constructor(private modalService: NgbModal, private listadosService: ListadosService){}
+  constructor(private modalService: NgbModal, private listadosService: ListadosService) { }
 
   ngOnInit() {
     this.getUsers()
@@ -39,7 +35,6 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
 
   getUsers(){
     this.listadosService.obtenerUsuarios().subscribe( usuarios => {
-      console.log(usuarios)
       this.dataUserMostrar = usuarios.map((u)=>{
         const usuario: UsersMostrar = {
           contraseña: u.nombre + "1234",
@@ -73,51 +68,46 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
       }
     });
   }
-    eliminarUsuario(usuario: Users){
-      const modalRef = this.modalService.open(ModalEliminarUsuarioComponent, { centered: true});
-    modalRef.result.then((result) => {
-      if(result){
-        console.log("elimino")
+  eliminarUsuario(usuario: Users) {
+
+  }
+
+  ngAfterViewInit(): void {
+    fromEvent(this.search.nativeElement, 'keydown')
+      .pipe(
+        debounceTime(550),
+        map((x: any) => x['target']['value'])
+      )
+      .subscribe((value) => {
+        this.updateFilter(value);
+      });
+  }
+
+  updateFilter(val: any) {
+    const value = val.toString().toLowerCase().trim();
+    const count = this.columns.length;
+    const keys = Object.keys(this.temp[0]);
+    this.rows = this.temp.filter((item: any) => {
+      let shouldFilter = false;
+      for (let i = 0; i <= count; i++) {
+        if (
+          (item[keys[i]] &&
+            item[keys[i]]
+              .toString()
+              .toLowerCase()
+              .indexOf(value) !== -1) ||
+          !value
+        ) {
+          shouldFilter = true
+        }
       }
+      return shouldFilter
     });
-    }
+  }
 
-    ngAfterViewInit(): void {
-      fromEvent(this.search.nativeElement, 'keydown')
-        .pipe(
-          debounceTime(550),
-          map((x:any) => x['target']['value'])
-        )
-        .subscribe((value) => {
-          this.updateFilter(value);
-        });
-    }
-    
-    updateFilter(val: any) {
-      const value = val.toString().toLowerCase().trim();
-        const count = this.columns.length;
-        const keys = Object.keys(this.temp[0]);
-        this.rows = this.temp.filter((item:any) => {
-          let shouldFilter = false;
-           for (let i = 0; i <= count; i++) {
-             if (
-               (item[keys[i]] &&
-                 item[keys[i]]
-                   .toString()
-                   .toLowerCase()
-                   .indexOf(value) !== -1) ||
-               !value
-             ) {
-              shouldFilter = true
-             }
-           }
-           return shouldFilter
-        });
-    }
-
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
-   }
+  }
 
 }

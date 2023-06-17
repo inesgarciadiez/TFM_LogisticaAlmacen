@@ -1,12 +1,11 @@
-import {  AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ListadoActivos } from '../../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAltaPedidoComponent } from './components/modal-alta-pedido/modal-alta-pedido.component';
 import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
-import { Roles } from 'src/app/shared/rol-enum';
-import { ListadoService } from 'src/app/services/listado.service'; 
 import { ListadosService } from '../../../services/listados.service';
+import { ModalEliminarPedidoComponent } from 'src/app/components/app-roles/operario/listados/components/listado-activos/components/modal-eliminar-pedido/modal-eliminar-pedido.component';
 
 
 @Component({
@@ -15,17 +14,13 @@ import { ListadosService } from '../../../services/listados.service';
   styleUrls: ['./listado-activos.component.css']
 })
 
-export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild ("search", {static: false}) search: any
-
-  public dataListadoActivos: ListadoActivos[] = [];
-
-
   public rows: Array<object> = []; 
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public pedidos: ListadoActivos[] = [];
-  public rol! : Roles
+  public dataPedidoMostrar: PedidoMostrar[] = [];
   private destroyed$ = new Subject<void>()
 
   constructor(private listadoService: ListadosService, private modalService: NgbModal) {
@@ -40,17 +35,27 @@ export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy
     { prop: "fecha_salida", name: 'Fecha salida' }, 
     { prop: "almacen_origen", name: 'Almacen origen' }, 
     { prop: "almacen_destino", name: 'Almacen destino' }, 
-    { prop: "matricula", name: 'Matrícula' }
+    { prop: "matricula", name: 'Matrícula' },
+    { prop: "detalles_carga", name: 'Detalles' }
+
   ]
     this.listadoService.obtenerPedidos().subscribe( pedidos => {
       console.log(pedidos)
       this.pedidos = pedidos
       this.temp = this.pedidos;
       this.rows = [...this.temp]
+
+      // for (let i = 0; i < pedidos.length ; i++)
+      // {
+      //   if (pedidos[i].estado.includes("CERRADO") == false) {
+      //     this.pedidos.push(pedidos[i])
+      //     this.temp = this.pedidos;
+      //     this.rows = [...this.temp]
+
+      //   }
+
+      // }
     });
-
-    
-
   }
 
   crearPedido(){
@@ -63,7 +68,22 @@ export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy
   }
   
   editarPedido(pedido: ListadoActivos) {
+    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'xl' });
+    modalRef.componentInstance.pedido = pedido
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log("edito")
+      }
+    });
+  }
 
+  enviarRevision(pedido: ListadoActivos){
+
+  }
+
+  eliminarPedido(pedido: ListadoActivos) {
+    const modalRef = this.modalService.open(ModalEliminarPedidoComponent, { centered: true });
+    modalRef.componentInstance.pedido = pedido
   }
 
   ngAfterViewInit(): void {
@@ -99,9 +119,9 @@ export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy
       });
   }
 
- ngOnDestroy(): void {
-  this.destroyed$.next();
-  this.destroyed$.complete();
- }
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+   }
 
 }

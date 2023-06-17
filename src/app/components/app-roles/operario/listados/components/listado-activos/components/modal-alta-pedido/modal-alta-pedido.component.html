@@ -1,13 +1,13 @@
 <form [formGroup]="form" (submit)="onSubmit()">
   <div class="modal-content border-0 modal-fondo">
     <div class="modal-header custom">
-      <!-- <h6 class="modal-title" >EDITAR PEDIDO</h6> -->
-          <h6 class="modal-title">NUEVO PEDIDO</h6>
+          <h6 *ngIf="pedido"  class="modal-title" >EDITAR PEDIDO</h6>
+          <h6 *ngIf="!pedido" class="modal-title">NUEVO PEDIDO</h6>
     </div>
     <div class="modal-body p-modal">
-      <!-- <h6 class="ms-4" >FORMULARIO EDITAR PEDIDO</h6> -->
-      <h6 class="ms-2" >FORMULARIO NUEVO PEDIDO</h6>
-      <div class="flex-row d-flex justify-content-around mb-3 mt-5">
+      <h6 *ngIf="pedido" class="ms-2" >FORMULARIO EDITAR PEDIDO</h6>
+      <h6 *ngIf="!pedido" class="ms-2" >FORMULARIO NUEVO PEDIDO</h6>
+      <div class="flex-row d-flex justify-content-around mb-4 mt-4">
         
         <div class="input-group fecha">
           <label for="fecha" class="form-label col-12">Fecha</label>
@@ -25,6 +25,43 @@
             </span>
         </div>
 
+    <!-- <div class="modal-content border-0 modal-fondo">
+        <div class="modal-header custom">
+          <h6 class="modal-title" *ngIf="pedido != undefined">EDITAR EMPLEADOS</h6>
+          <h6 class="modal-title" *ngIf="pedido == undefined">ALTA PEDIDO</h6>
+        </div>
+        <div class="modal-body p-modal">
+            <h6 class="ms-4" *ngIf="pedido != undefined">FORMULARIO EDITAR EMPLEADO</h6>
+            <h6 class="ms-4" *ngIf="pedido == undefined">FORMULARIO ALTA PEDIDO</h6>
+             <div class="flex-row d-flex justify-content-around mb-3 mt-4">
+                <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Fecha</label>
+                    <div class="md-form md-outline input-with-post-icon datepicker" id="customDays">
+                        <input placeholder="Select date" type="text" id="Customization" class="form-control" formControlName="fecha_salida">
+                        <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                      </div>
+                    </div>
+                  <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Almacén origen</label>
+                    <input type="text" formControlName="almacen_origen" class="form-control border-0 sombras" id="inputEmail4">
+                  </div>
+                </div>
+               <div class="flex-row d-flex justify-content-around">
+                  <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Almacén destino</label>
+                    <input type="email" formControlName="almacen_destino" class="form-control border-0 sombras" id="inputEmail4">
+                  </div>
+                  <div class="col-md-5">
+                    <label for="inputPassword4" class="form-label">Matrícula del camión</label>
+                    <input type="text" formControlName="matricula" class="form-control border-0 sombras" id="inputPassword4">
+                  </div>
+                </div>
+
+            <div class="mt-5 p-0 form-check custom-radio ">
+                <label for="exampleFormControlTextarea1" class="form-label">Detalles de la carga</label>
+                <textarea class="form-control" formControlName="detalles" id="exampleFormControlTextarea1" rows="3"></textarea>
+    
+            </div> -->
 
           <div class="col-md-3">
             <label for="orogen" class="form-label">Almacén origen</label> 
@@ -53,9 +90,15 @@
           </div>
         </div>
 
-    <div class="flex-row d-flex justify-content-end gap-2 footer-modal">
+    <div class="flex-row d-flex justify-content-between gap-2 footer-modal">
+      <div>
+      <button *ngIf="pedido && (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR' || pedido.estado == 'LISTO_SALIDA') " type="submit" class="btn ms-3 btn-eliminar">
+        <i class="fa-solid fa-paper-plane"></i> Revisión
+      </button>
+      </div>
+      <div class="d-flex gap-3 ">
       <button type="submit" class="btn btn-guardar">
-        <i class="fa-solid fa-paper-plane"></i> Enviar
+        <i class="fa-solid fa-floppy-disk"></i> Guardar
       </button>
       <button
         type="button"
@@ -64,6 +107,7 @@
       >
         Cancelar
       </button>
+    </div>
     </div>
   </div>
   </div>
