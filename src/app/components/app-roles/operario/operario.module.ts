@@ -5,11 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OperarioRoutingModule } from './operario-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 //Components
 import { ListadosComponent } from './listados/listados.component';
-/* import { ModalEditarUsuarioComponent } from './listados/components/listado-usuarios/components/modal-editar-usuario/modal-editar-usuario.component';
-import { ModalEliminarUsuarioComponent } from './listados/components/listado-usuarios/components/modal-eliminar-usuario/modal-eliminar-usuario.component'; */
-import { ListadoService } from 'src/app/services/listado.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ListadoActivosComponent } from './listados/components/listado-activos/listado-activos.component';
 import { ListadoPasadosComponent } from './listados/components/listado-pasados/listado-pasados.component';
@@ -22,10 +22,9 @@ import { ListadosService } from './services/listados.service';
   declarations: [
     ListadoActivosComponent,
     ListadosComponent,
-/*     ModalEditarUsuarioComponent,
-    ModalEliminarUsuarioComponent, */
     ListadoPasadosComponent,
-ModalAltaPedidoComponent
+    ModalAltaPedidoComponent,
+
   ],
   imports: [
     CommonModule,
@@ -34,7 +33,9 @@ ModalAltaPedidoComponent
     NgxDatatableModule,
     ReactiveFormsModule,
     NgSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers:[
     ListadosService,

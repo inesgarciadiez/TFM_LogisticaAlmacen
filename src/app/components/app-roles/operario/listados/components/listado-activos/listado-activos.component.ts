@@ -33,6 +33,7 @@ export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
  ngOnInit() {
+  
   this.columns = [ 
     { prop: "referencia", name: 'Referencia' }, 
     { prop: "estado", name: 'Estado' }, 
@@ -42,6 +43,7 @@ export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy
     { prop: "matricula", name: 'Matrícula' }
   ]
     this.listadoService.obtenerPedidos().subscribe( pedidos => {
+      console.log(pedidos)
       this.pedidos = pedidos
       this.temp = this.pedidos;
       this.rows = [...this.temp]
@@ -52,9 +54,8 @@ export class ListadoActivosComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   crearPedido(){
-    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg'});
-    //modalRef.componentInstance.almacenes = this.dataAlmacenes
-    modalRef.result.then((result) => {
+    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'xl'});
+      modalRef.result.then((result) => {
       if(result){
         console.log("creo")
       }

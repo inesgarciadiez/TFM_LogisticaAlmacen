@@ -3,6 +3,11 @@ import { FormGroup, FormBuilder, Validator } from "@angular/forms"
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { ListadoActivos } from 'src/app/components/app-roles/operario/interfaces';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { Almacenes } from 'src/app/interfaces';
+import { ListadosService } from 'src/app/components/app-roles/operario/services/listados.service';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-modal-alta-pedido',
@@ -10,58 +15,44 @@ import { ListadoActivos } from 'src/app/components/app-roles/operario/interfaces
   styleUrls: ['./modal-alta-pedido.component.css']
 })
 export class ModalAltaPedidoComponent implements OnInit, OnDestroy{
+
   private destroyed$ = new Subject<void>()
-  @Input() usuario!: ListadoActivos
- // @Input() almacenes!: Almacenes[]
+  //@Input() usuario!: ListadoActivos
+  public almacenes: Almacenes[] = []
+  public myDateValue: Date = new Date;
   public form!: FormGroup
 
-  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal){}
+  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, private listadoService: ListadosService){
 
+  }
+  onDateChange(newDate: Date) {
+    console.log(newDate);
+  }
   ngOnInit(): void {
-/*     if(this.usuario != undefined){
-      const nombre = this.usuario.nombre.split(" ")
-      //this.mostrarAlmacenes = this.usuario.rol_id == 'Encargado'?true: false
-      this.form = this.fb.group({
-        nombre: [nombre[0]],
-        apellidos: [nombre[1]],
-        correo: [this.usuario.email],
-        rol: [this.usuario.rol],
-        contrasena: [this.usuario.contraseña],
-        almacen: [this.usuario.almacen?.nombre]
-      })
-
-    }else{
-      this.form = this.fb.group({
-        nombre: [null],
-        apellidos: [null],
-        correo: [null],
-        rol: [null],
-        contrasena: [null],
-        almacen: [null]
-      })
-
-    } */
+  this.listadoService.obtenerAlmacenes().subscribe(a => {this.almacenes = a, console.log(a)})
+  this.form = this.fb.group({
+    almacen_destino: [null],
+    almacen_origen: [null],
+    fecha_salida: [null],
+    matricula: [null],
+    detalles: [null]
+  })
   }
 
   
   onSubmit(){
-/*     console.log(typeof Roles[this.form.value.rol])
-    const usuarioEdit: Users = {
-      nombre: this.form.value.nombre,
-      apellido: this.form.value.apellidos,
-      email: this.form.value.correo,
-      contraseña: this.form.value.contrasena,
-      rol_id: parseInt(Roles[this.form.value.rol]) 
-    }
-    this.activeModal.close(true) */
+const pedido: ListadoActivos = {
+  almacen_destino: this.form.value.almacen_destino,
+  almacen_origen: this.form.value.almacen_origen,
+  matricula: this.form.value.matricula,
+  detalles_carga: this.form.value.detalles,
+  fecha_salida: moment(this.form.value).format("YYYY-MM-DD"),
+  //estado: "NUEVO"
+}
+
+this.listadoService.addPedidos(pedido).subscribe(resp => console.log(resp))
   }
 
-  // changesRol(){
-  //   const rol_changes = this.form.get("rol")?.valueChanges;
-  //   rol_changes?.pipe(takeUntil(this.destroyed$)).subscribe((rol)=> {
-  //     this.mostrarAlmacenes = rol == 'Encargado'?true: false
-  //   })
-  // }
 
   ngOnDestroy(): void {
     this.destroyed$.next();

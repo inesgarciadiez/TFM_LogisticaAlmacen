@@ -28,6 +28,16 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
   constructor(private modalService: NgbModal, private listadosService: ListadosService){}
 
   ngOnInit() {
+    this.getUsers()
+      this.columns = [
+        { prop: "nombre", name: "Nombre" },
+        { prop: "rol", name: "Rol" },
+        { prop: "email", name: "Correo" },
+        { prop: "contraseña", name: "Contraseña" },
+      ]
+  }
+
+  getUsers(){
     this.listadosService.obtenerUsuarios().subscribe( usuarios => {
       console.log(usuarios)
       this.dataUserMostrar = usuarios.map((u)=>{
@@ -43,21 +53,14 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
       this.temp = this.dataUserMostrar;
       this.rows = [...this.temp]
 })
-      this.columns = [
-        { prop: "nombre", name: "Nombre" },
-        { prop: "rol", name: "Rol" },
-        { prop: "email", name: "Correo" },
-        { prop: "contraseña", name: "Contraseña" },
-      ]
   }
-  editarUsuario(usuario: Users){
 
+  editarUsuario(usuario: Users){
     const modalRef = this.modalService.open(ModalEditarUsuarioComponent, { centered: true, size: 'lg'});
     modalRef.componentInstance.usuario = usuario
-    
     modalRef.result.then((result) => {
       if(result){
-        console.log("edito")
+        this.getUsers()
       }
     });
   }
@@ -66,7 +69,7 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy,AfterViewInit
  
     modalRef.result.then((result) => {
       if(result){
-        console.log("creo")
+        this.getUsers()
       }
     });
   }

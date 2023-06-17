@@ -13,6 +13,7 @@ import { LoginComponent } from './components/usuario/login/login.component';
 import { OperarioModule } from './components/app-roles/operario/operario.module';
 import { AuthInterceptor } from './shared/auth.interceptor';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,11 @@ import { AuthInterceptor } from './shared/auth.interceptor';
     LoginComponent,
     HomeComponent,
     LoginComponent,
+
   ],
+  exports:[
+
+    ],
   imports: [
     ReactiveFormsModule,
     AppRoutingModule,
@@ -34,6 +39,7 @@ import { AuthInterceptor } from './shared/auth.interceptor';
     HttpClientModule,
     OperarioModule
   ],
+  
   providers:[
     {
       provide: HTTP_INTERCEPTORS,
