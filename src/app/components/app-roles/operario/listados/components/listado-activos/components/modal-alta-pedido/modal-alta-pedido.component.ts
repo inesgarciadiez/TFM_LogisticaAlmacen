@@ -46,8 +46,7 @@ const pedido: ListadoActivos = {
   almacen_origen: this.form.value.almacen_origen,
   matricula: this.form.value.matricula,
   detalles_carga: this.form.value.detalles,
-  fecha_salida: moment(this.form.value).format("YYYY-MM-DD"),
-  //estado: "NUEVO"
+  fecha_salida: moment(this.form.value).format("YYYY-MM-DD")
 }
 
 this.listadoService.addPedidos(pedido).subscribe(resp => console.log(resp))
