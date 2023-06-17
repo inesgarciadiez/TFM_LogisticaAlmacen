@@ -14,6 +14,7 @@ import { OperarioModule } from './components/app-roles/operario/operario.module'
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { environment } from 'src/environments/environment';
     BrowserModule,
     HttpClientModule,
     OperarioModule,
-    AgmCoreModule.forRoot(environment.googleMaps)
+    AgmCoreModule.forRoot(environment.googleMaps),
+    AgmDirectionModule
   ],
   providers:[
     {

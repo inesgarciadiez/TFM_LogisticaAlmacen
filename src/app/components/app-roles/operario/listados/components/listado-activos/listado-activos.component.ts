@@ -6,6 +6,7 @@ import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { PedidoMostrar } from '../../../interfaces/pedido-mostrar.interface';
 import { ListadosService } from '../../../services/listados.service';
 import { ModalEliminarPedidoComponent } from 'src/app/components/app-roles/operario/listados/components/listado-activos/components/modal-eliminar-pedido/modal-eliminar-pedido.component';
+import { ModalAbrirMapaComponent } from 'src/app/components/app-roles/operario/listados/components/listado-activos/components/modal-abrir-mapa/modal-abrir-mapa.component';
 
 
 @Component({
@@ -108,6 +109,12 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
          }
          return shouldFilter
       });
+  }
+
+  verRuta(pedido: ListadoActivos) {
+    const modalRef = this.modalService.open(ModalAbrirMapaComponent, { centered: true });
+    modalRef.componentInstance.pedido = pedido
+
   }
 
   ngOnDestroy(): void {

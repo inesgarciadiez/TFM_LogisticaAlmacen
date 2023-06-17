@@ -15,6 +15,10 @@ import { ModalAltaPedidoComponent } from './listados/components/listado-activos/
 import { AuthInterceptor } from 'src/app/shared/auth.interceptor';
 import { ListadosService } from './services/listados.service';
 import { ModalEliminarPedidoComponent } from './listados/components/listado-activos/components/modal-eliminar-pedido/modal-eliminar-pedido.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
+import { ModalAbrirMapaComponent } from './listados/components/listado-activos/components/modal-abrir-mapa/modal-abrir-mapa.component';
+import { AgmDirectionModule } from 'agm-direction';
 
 
 @NgModule({
@@ -23,7 +27,8 @@ import { ModalEliminarPedidoComponent } from './listados/components/listado-acti
     ListadosComponent,
     ModalEliminarPedidoComponent,
     ListadoPasadosComponent,
-    ModalAltaPedidoComponent
+    ModalAltaPedidoComponent,
+    ModalAbrirMapaComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +37,9 @@ import { ModalEliminarPedidoComponent } from './listados/components/listado-acti
     NgxDatatableModule,
     ReactiveFormsModule,
     NgSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot(environment.googleMaps),
+    AgmDirectionModule
   ],
   providers:[
     ListadosService,
