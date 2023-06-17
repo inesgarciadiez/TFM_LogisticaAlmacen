@@ -29,7 +29,7 @@ export class ListadoPasadosComponent implements OnInit, OnDestroy, AfterViewInit
       this.listadoService.obtenerPedidos().subscribe( pedidos => {
         for (let i = 0; i < pedidos.length ; i++)
         {
-          if (pedidos[i].estado.includes("CERRADO") == true) {
+          if (pedidos[i].estado?.includes("CERRADO") == true) {
               this.pedidos.push(pedidos[i])
             this.temp = this.pedidos;
             this.rows = [...this.temp]

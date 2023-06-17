@@ -56,46 +56,23 @@ export class ModalAltaPedidoComponent implements OnInit, OnDestroy{
       detalles: [null]
     })
   }
-  
-    //console.log(this.pedido)
-    // if (this.pedido != undefined) {
-    //   this.form = this.fb.group({
-    //     estado: [this.pedido.nuevoEstado],
-    //     nuevoEstado: [this.pedido.nuevoEstado],
-    //     fecha_salida: [this.pedido.fecha_salida],
-    //     almacen_origen: [this.pedido.almacen_origen],
-    //     almacen_destino: [this.pedido.almacen_destino],
-    //     matricula: [this.pedido.matricula],
-    //     detalles: [this.pedido.detalles],
-    //     comentario_error: [this.pedido.comentario_error]
-    //   })
-    // }
   }
 
   
-  onSubmit(){
-    console.log(this.datePipe.transform(this.form.value.fecha_salida, 'YYYY-MM-dd'))
+onSubmit(){
   const pedido: ListadoActivos = {
   almacen_destino: this.form.value.almacen_destino,
   almacen_origen: this.form.value.almacen_origen,
   matricula: this.form.value.matricula,
   detalles: this.form.value.detalles,
   fecha_salida: this.datePipe.transform(this.form.value.fecha_salida, 'YYYY-MM-dd')
-  
-
 }
 
-console.log('pedi', pedido )
-
-
-// if(this.pedido && (this.pedido.estado == 'NUEVO' || this.pedido.estado == 'ERROR' || this.pedido.estado == 'LISTO_SALIDA')){
-//   this.listadoService.editPedido(pedido, this.pedido.referencia ).subscribe(resp => console.log(resp))
-// }else {
-//   this.listadoService.addPedidos(pedido).subscribe(resp => console.log(resp))
-// }
-
-
-  
+if(this.pedido){
+  this.listadoService.editPedido(pedido, this.pedido.referencia ).subscribe(resp => console.log(resp))
+}else {
+  this.listadoService.addPedidos(pedido).subscribe(resp => console.log(resp))
+}
 
     // if (this.pedido != undefined) {
     //   this.form  = this.fb.group({
@@ -122,7 +99,18 @@ console.log('pedi', pedido )
     
     this.activeModal.close(true)
 
-    //this.router.navigate(['/listados/listado-activos']);
+  }
+
+  enviarRevision(){
+    const pedido: ListadoActivos = {
+      almacen_destino: this.form.value.almacen_destino,
+      almacen_origen: this.form.value.almacen_origen,
+      matricula: this.form.value.matricula,
+      detalles: this.form.value.detalles,
+      fecha_salida: this.datePipe.transform(this.form.value.fecha_salida, 'YYYY-MM-dd')
+    }
+    console.log(pedido)
+    this.listadoService.envioRevision(this.pedido.referencia ).subscribe(resp => console.log(resp))
   }
 
   ngOnDestroy(): void {

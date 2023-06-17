@@ -92,7 +92,7 @@
 
     <div class="flex-row d-flex justify-content-between gap-2 footer-modal">
       <div>
-      <button *ngIf="pedido && (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR' || pedido.estado == 'LISTO_SALIDA') " type="submit" class="btn ms-3 btn-eliminar">
+      <button *ngIf="pedido && (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR' || pedido.estado == 'LISTO_SALIDA') " type="button" (click)="enviarRevision()" class="btn ms-3 btn-eliminar">
         <i class="fa-solid fa-paper-plane"></i> Revisión
       </button>
       </div>
