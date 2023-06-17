@@ -1,0 +1,22 @@
+.linea{
+    border-top: 2px solid #BC7B39;
+}
+.btn-user{
+
+    padding: 5px 20px;
+    border: 2px solid #BC7B39;
+    border-radius: 16px 16px 0px 0px;
+ 
+    background-color: transparent;
+    color: #BC7B39;
+    text-decoration: none;
+    margin-bottom: -2px;
+}
+.btn-user:hover {
+    background-color: #BC7B39;
+    color: white;
+}
+.active {
+    background-color: #BC7B39;
+    color: white;
+}

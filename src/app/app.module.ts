@@ -11,6 +11,7 @@ import { JefeModule } from './components/app-roles/jefe/jefe.module';
 import { HomeComponent } from './components/theme/home/home.component';
 import { LoginComponent } from './components/usuario/login/login.component';
 import { OperarioModule } from './components/app-roles/operario/operario.module';
+import { EncargadoModule } from './components/app-roles/encargado/encargado.module';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
@@ -37,7 +38,8 @@ import { AgmDirectionModule } from 'agm-direction';
     HttpClientModule,
     OperarioModule,
     AgmCoreModule.forRoot(environment.googleMaps),
-    AgmDirectionModule
+    AgmDirectionModule,
+    EncargadoModule
   ],
   providers:[
     {
