@@ -19,9 +19,7 @@
   </ng-template>
 
   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-    <div class="d-flex justify-content-center">
       {{ value }}
-    </div>
   </ng-template>
 </ngx-datatable-column>
 
@@ -30,9 +28,7 @@
     <span (click)="sort()">Fecha salida</span>
   </ng-template>
   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-    <div class="d-flex justify-content-center">
       {{ value }}
-    </div>
   </ng-template>
 </ngx-datatable-column>
 
@@ -41,9 +37,7 @@
     <span (click)="sort()">Almacen origen</span>
   </ng-template>
   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-      <div class="d-flex justify-content-center">
-    <input type="text" [value]="value" id="pass" disabled>
-  </div>
+        {{ value }}
   </ng-template>
 </ngx-datatable-column>
 
@@ -53,9 +47,7 @@
     <span (click)="sort()">Almacen destino</span>
   </ng-template>
   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-      <div class="d-flex justify-content-center">
-    <input type="text" [value]="value" id="pass" disabled>
-  </div>
+        {{ value }}
   </ng-template>
 </ngx-datatable-column>
 
@@ -65,9 +57,16 @@
     <span (click)="sort()">Matrícula</span>
   </ng-template>
   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-      <div class="d-flex justify-content-center">
-    <input type="text" [value]="value" id="pass" disabled>
-  </div>
+        {{ value }}
+  </ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column name="Detalles de la carga" prop="detalles">
+  <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+    <span (click)="sort()">Detalles de la carga</span>
+  </ng-template>
+  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{ value }}
   </ng-template>
 </ngx-datatable-column>
 

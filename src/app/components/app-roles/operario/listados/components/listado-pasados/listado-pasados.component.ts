@@ -39,6 +39,8 @@ export class ListadoPasadosComponent implements OnInit, OnDestroy, AfterViewInit
       { prop: "almacen_origen", name: 'Almacen origen' }, 
       { prop: "almacen_destino", name: 'Almacen destino' }, 
       { prop: "matricula", name: 'Matrícula'}, 
+      { prop: "detalles", name: 'Detalles de la carga'}, 
+      
 ];
 
   }

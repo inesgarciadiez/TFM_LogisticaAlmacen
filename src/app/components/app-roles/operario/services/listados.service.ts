@@ -25,7 +25,6 @@ export class ListadosService {
     return this.clientHttp.get<Almacenes[]>(url);
   }
 
-
   getById(pId: string) {
     const url = `${environment.apiUrl}/pedidos/${pId}`;
     return this.clientHttp.get<ListadoActivos[]>(url);
@@ -44,5 +43,9 @@ export class ListadosService {
     const url = `${environment.apiUrl}/pedidos/${pedidoId}`;
     console.log(url);
     return this.clientHttp.delete<ListadoActivos[]>(url);
+  }
+  cerrarPedido(idPedido:number|undefined): Observable<ListadoActivos> {
+    const url = `${environment.apiUrl}/pedidos/operario/cerrar/${idPedido}`;
+    return this.clientHttp.put<ListadoActivos>(url,null);
   }
 }

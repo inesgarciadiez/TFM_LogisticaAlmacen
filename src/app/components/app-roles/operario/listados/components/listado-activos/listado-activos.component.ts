@@ -20,7 +20,6 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public pedidos: ListadoActivos[] = [];
-  public dataPedidoMostrar: PedidoMostrar[] = [];
   private destroyed$ = new Subject<void>()
 
   constructor(private listadoService: ListadosService, private modalService: NgbModal) {
@@ -30,32 +29,22 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
  ngOnInit() {
   
   this.columns = [ 
-    { prop: "referencia", name: 'Referencia' }, 
     { prop: "estado", name: 'Estado' }, 
     { prop: "fecha_salida", name: 'Fecha salida' }, 
     { prop: "almacen_origen", name: 'Almacen origen' }, 
     { prop: "almacen_destino", name: 'Almacen destino' }, 
     { prop: "matricula", name: 'Matrícula' },
-    { prop: "detalles_carga", name: 'Detalles' }
+  ];
+  this.obtenerPedidos()
+}
 
-  ]
+  obtenerPedidos(){
     this.listadoService.obtenerPedidos().subscribe( pedidos => {
       console.log(pedidos)
-      this.pedidos = pedidos
-      this.temp = this.pedidos;
-      this.rows = [...this.temp]
-
-      // for (let i = 0; i < pedidos.length ; i++)
-      // {
-      //   if (pedidos[i].estado.includes("CERRADO") == false) {
-      //     this.pedidos.push(pedidos[i])
-      //     this.temp = this.pedidos;
-      //     this.rows = [...this.temp]
-
-      //   }
-
-      // }
-    });
+        this.pedidos = pedidos.filter(p => p.estado != "CERRADO")
+        this.temp = this.pedidos;
+        this.rows = [...this.temp]
+       });
   }
 
   crearPedido(){
@@ -63,6 +52,7 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
       modalRef.result.then((result) => {
       if(result){
         console.log("creo")
+        this.obtenerPedidos()
       }
     });
   }
@@ -73,17 +63,15 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
     modalRef.result.then((result) => {
       if (result) {
         console.log("edito")
+        this.obtenerPedidos()
       }
     });
-  }
-
-  enviarRevision(pedido: ListadoActivos){
-
   }
 
   eliminarPedido(pedido: ListadoActivos) {
     const modalRef = this.modalService.open(ModalEliminarPedidoComponent, { centered: true });
     modalRef.componentInstance.pedido = pedido
+    this.obtenerPedidos()
   }
 
   ngAfterViewInit(): void {
