@@ -1,47 +1,93 @@
 <form [formGroup]="form" (submit)="onSubmit()">
-    <div class="modal-content border-0 modal-fondo">
-        <div class="modal-header custom">
-          <h6 class="modal-title" *ngIf="pedido != undefined">EDITAR EMPLEADOS</h6>
-          <h6 class="modal-title" *ngIf="pedido == undefined">ALTA PEDIDO</h6>
+  <div class="modal-content border-0 modal-fondo">
+    <div class="modal-header custom">
+          <h6 *ngIf="pedido"  class="modal-title" >EDITAR PEDIDO</h6>
+          <h6 *ngIf="!pedido" class="modal-title">NUEVO PEDIDO</h6>
+    </div>
+    <div class="modal-body p-modal">
+      <h6 *ngIf="pedido" class="ms-2" >FORMULARIO EDITAR PEDIDO</h6>
+      <h6 *ngIf="!pedido" class="ms-2" >FORMULARIO NUEVO PEDIDO</h6>
+      <div class="flex-row d-flex justify-content-around mb-4 mt-4">
+        
+        <div class="input-group fecha">
+          <label for="fecha" class="form-label col-12">Fecha</label>
+          <input
+            type="text"
+            class="form-control border-0 rounded-start sombras"
+            autocomplete="off"
+            formControlName = "fecha_salida"
+            bsDatepicker
+            id="fecha"
+            [bsConfig]="{ isAnimated: true, containerClass: 'theme-blue' }"
+          />
+            <span class="input-group-text calendar border-0">
+              <i class="fa-regular fa-calendar-days"></i>
+            </span>
         </div>
-        <div class="modal-body p-modal">
-            <h6 class="ms-4" *ngIf="pedido != undefined">FORMULARIO EDITAR EMPLEADO</h6>
-            <h6 class="ms-4" *ngIf="pedido == undefined">FORMULARIO ALTA PEDIDO</h6>
-             <div class="flex-row d-flex justify-content-around mb-3 mt-4">
-                <div class="col-md-5">
-                    <label for="inputEmail4" class="form-label">Fecha</label>
-                    <div class="md-form md-outline input-with-post-icon datepicker" id="customDays">
-                        <input placeholder="Select date" type="text" id="Customization" class="form-control" formControlName="fecha_salida">
-                        <i class="fas fa-calendar input-prefix" tabindex=0></i>
-                      </div>
-                    </div>
-                  <div class="col-md-5">
-                    <label for="inputEmail4" class="form-label">Almacén origen</label>
-                    <input type="text" formControlName="almacen_origen" class="form-control border-0 sombras" id="inputEmail4">
-                  </div>
-                </div>
-               <div class="flex-row d-flex justify-content-around">
-                  <div class="col-md-5">
-                    <label for="inputEmail4" class="form-label">Almacén destino</label>
-                    <input type="email" formControlName="almacen_destino" class="form-control border-0 sombras" id="inputEmail4">
-                  </div>
-                  <div class="col-md-5">
-                    <label for="inputPassword4" class="form-label">Matrícula del camión</label>
-                    <input type="text" formControlName="matricula" class="form-control border-0 sombras" id="inputPassword4">
-                  </div>
-                </div>
-
-            <div class="mt-5 p-0 form-check custom-radio ">
-                <label for="exampleFormControlTextarea1" class="form-label">Detalles de la carga</label>
-                <textarea class="form-control" formControlName="detalles" id="exampleFormControlTextarea1" rows="3"></textarea>
-    
-            </div>
-
-        </div>
-        <div class="flex-row d-flex justify-content-end gap-2 footer-modal">
-            <button type="submit" class="btn btn-guardar"> <i class="fa-solid fa-lg fa-floppy-disk"></i> Guardar</button>
-          <button type="button" class="btn btn-secondary" (click)="activeModal.close(null)">Cancelar</button>
-        </div>
+          <div class="col-md-3">
+            <label for="orogen" class="form-label">Almacén origen</label> 
+            <ng-select #select [items]="almacenes" bindLabel="nombre" formControlName = "almacen_destino" bindValue="nombre"></ng-select>
+          </div>
+          <div class="col-md-3">
+            <label for="destino"  class="form-label">Almacén destino</label> 
+            <ng-select #select  [items]="almacenes" bindLabel="nombre" formControlName = "almacen_origen" bindValue="nombre"></ng-select>
+          </div>
+          <div class="col-md-2">
+            <label for="matricula" class="form-label"
+              >Matrícula del camión</label
+            >
+            <input
+              type="text"
+              class="form-control border-0 sombras"
+              id="matricula"
+              formControlName = "matricula"
+            />
+          </div>
       </div>
-</form>
+          <div class="flex-row d-flex mb-4 ">
+          <div class="mb-3 col-6 p-3 ">
+            <label for="carga" class="form-label">Detalles de la carga</label>
+            <textarea class="form-control border-0 sombras" formControlName = "detalles" id="carga" rows="4"></textarea>
+          </div>
+          <div *ngIf="pedido && (pedido.estado == 'PTE_ENTRADA' || pedido.estado == 'PTE_SALIDA' || pedido.estado == 'ERROR')" class="mb-3 col-6 p-3 ">
+            <label for="carga" class="form-label">Motivos de denegación</label>
+            <textarea class="form-control border-0 sombras" formControlName = "comentario_error" id="carga" rows="4"></textarea>
+          </div>
+        </div>
 
+    <div class="flex-row d-flex justify-content-between gap-2 footer-modal">
+      <div >
+      <button *ngIf="pedido && (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR')" type="button" (click)="enviarRevision()" class="btn ms-3 btn-eliminar">
+        <i class="fa-solid fa-paper-plane"></i> Revisión
+      </button>
+      </div>
+      <div *ngIf="pedido && (pedido.estado == 'PTE_ENTRADA' || pedido.estado == 'PTE_SALIDA') ">
+        <button  type="button" (click)="aprobarPedido()" class="btn ms-3 btn-guardar">
+          <i class="fa-solid fa-check-double"></i> Aprobar
+        </button>
+        <button  type="button" (click)="denegarPedido()" class="btn ms-3 btn-eliminar">
+          <i class="fa-solid fa-reply"></i> Denegar
+        </button>
+        </div>
+        <button *ngIf="pedido && (pedido.estado == 'LISTO_SALIDA')" type="button" (click)="enviarRevision()" class="btn ms-3 btn-eliminar">
+          <i class="fa-solid fa-paper-plane"></i> Revisión
+        </button>
+        <button *ngIf="pedido && (pedido.estado == 'LISTO_ENTRADA')" type="button" (click)="cerrarPedido()" class="btn ms-3 btn-eliminar">
+          <i class="fa-solid fa-paper-plane"></i> Cerrar
+        </button>
+      <div *ngIf="!pedido || (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR' )" class="d-flex gap-3 ">
+      <button type="submit" class="btn btn-guardar">
+        <i class="fa-solid fa-floppy-disk"></i> Guardar
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="activeModal.close(null)"
+      >
+        Cancelar
+      </button>
+    </div>
+    </div>
+  </div>
+  </div>
+</form>

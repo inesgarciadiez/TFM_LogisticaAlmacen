@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OperarioRoutingModule } from './operario-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { NgSelectModule } from '@ng-select/ng-select';
-//Components
-import { ListadosComponent } from './listados/listados.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Components
+import { ListadosOperarioComponent } from './listados/listados.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ListadoActivosComponent } from './listados/components/listado-activos/listado-activos.component';
 import { ListadoPasadosComponent } from './listados/components/listado-pasados/listado-pasados.component';
@@ -19,12 +20,15 @@ import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
 import { ModalAbrirMapaComponent } from './listados/components/listado-activos/components/modal-abrir-mapa/modal-abrir-mapa.component';
 import { AgmDirectionModule } from 'agm-direction';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
   declarations: [
     ListadoActivosComponent,
-    ListadosComponent,
+    ListadosOperarioComponent,
+    ListadoPasadosComponent,
+    ModalAltaPedidoComponent,
     ModalEliminarPedidoComponent,
     ListadoPasadosComponent,
     ModalAltaPedidoComponent,
@@ -39,7 +43,9 @@ import { AgmDirectionModule } from 'agm-direction';
     NgSelectModule,
     HttpClientModule,
     AgmCoreModule.forRoot(environment.googleMaps),
-    AgmDirectionModule
+    AgmDirectionModule,
+    BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers:[
     ListadosService,

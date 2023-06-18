@@ -7,7 +7,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EncargadoRoutingModule } from './encargado-routing.module';
 import { ListadosComponent } from './listados/listados.component';
 import { ListadoPedidosComponent } from './listados/components/listado-pedidos/listado-pedidos.component';
-import { ListadosService } from '../encargado/services/listados.service';
+import { ListadosEncargadoService } from '../encargado/services/listados.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -26,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers:[
-    ListadosService
-  ]
+    ListadosEncargadoService
+  ],
 })
 export class EncargadoModule { }

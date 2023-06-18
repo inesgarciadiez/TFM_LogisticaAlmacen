@@ -3,23 +3,27 @@
     color: #848484;
   }
   .p-modal{
-    padding: 40px 50px 20px 50px;
+    padding: 40px 65px 20px 65px;
     color: #404040;
   }
 
 
   .footer-modal{
-    margin: 5px 40px 25px 0px;
+    margin: 5px 18px 25px 0px;
   }
   
-  .custom-radio{
-    margin-left: 30px;
-  }
+.fecha{
+  width: 20%;
+  height: fit-content;
+}
+.calendar{
+  background-color: #1b2540f5;
+  color: white;
+}
 
-  .custom-radio .form-check-input:checked{
-    background-color: #BC7B39;
-    border: 2px solid #BC7B39;
-  }
-  .custom-radio .form-check-input{
-    border: 2px solid #BC7B39;
-  }
+::ng-deep .theme-blue .bs-datepicker-head{
+  background-color: #1b2540f5 !important;
+}
+
+
+

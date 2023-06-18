@@ -17,6 +17,7 @@ import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
 import { AgmDirectionModule } from 'agm-direction';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,11 @@ import { AgmDirectionModule } from 'agm-direction';
     LoginComponent,
     HomeComponent,
     LoginComponent,
+
   ],
+  exports:[
+
+    ],
   imports: [
     ReactiveFormsModule,
     AppRoutingModule,
@@ -41,6 +46,7 @@ import { AgmDirectionModule } from 'agm-direction';
     AgmDirectionModule,
     EncargadoModule
   ],
+  
   providers:[
     {
       provide: HTTP_INTERCEPTORS,

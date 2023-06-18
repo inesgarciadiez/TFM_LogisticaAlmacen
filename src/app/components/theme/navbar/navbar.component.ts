@@ -12,7 +12,7 @@ export class NavbarComponent {
 
   constructor(private router: Router,private modalService: NgbModal) {}
   estaHome(): boolean{
-    return this.router.url === '/home';
+    return this.router.url === '/home' || this.router.url === '/login';
   }
   estaLogin(): boolean{
     return this.router.url === '/login';
@@ -25,6 +25,11 @@ export class NavbarComponent {
         console.log("creo")
       }
     });
+  }
+  cerrarSesion(){
+    localStorage.removeItem('token_user');
+    this.router.navigate(['/home'])
+   
   }
 
 

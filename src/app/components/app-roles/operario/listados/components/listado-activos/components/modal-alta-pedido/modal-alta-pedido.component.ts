@@ -4,78 +4,114 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { ListadoActivos } from 'src/app/components/app-roles/operario/interfaces';
+import { Almacenes } from 'src/app/interfaces';
 import { ListadosService } from 'src/app/components/app-roles/operario/services/listados.service';
+import { DatePipe } from '@angular/common';
+import { ListadosEncargadoService } from 'src/app/components/app-roles/encargado/services/listados.service';
+
 
 @Component({
   selector: 'app-modal-alta-pedido',
   templateUrl: './modal-alta-pedido.component.html',
-  styleUrls: ['./modal-alta-pedido.component.css']
+  styleUrls: ['./modal-alta-pedido.component.css'],
+  providers: [DatePipe, ListadosEncargadoService]
 })
-export class ModalAltaPedidoComponent implements OnInit, OnDestroy {
+export class ModalAltaPedidoComponent implements OnInit, OnDestroy{
+
   private destroyed$ = new Subject<void>()
+  public almacenes: Almacenes[] = []
   @Input() pedido!: ListadoActivos
   public form!: FormGroup
-  router = inject(Router);
 
-  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal,
-              private listadoService: ListadosService, private activateRoute: ActivatedRoute)
-              {
-                this.form = new FormGroup({
-                  estado: new FormControl(),
-                  nuevoEstado: new FormControl(),
-                  fecha_salida: new FormControl(),
-                  almacen_origen: new FormControl(),
-                  almacen_destino: new FormControl(),
-                  matricula: new FormControl(),
-                  detalles: new FormControl(),
-                  comentario_error: new FormControl()
-                })
-              }
+  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, private listadoService: ListadosService, private datePipe: DatePipe, private encargadoService: ListadosEncargadoService){}
 
-  ngOnInit(): void {
-    //console.log(this.pedido)
-    if (this.pedido != undefined) {
-      this.form = this.fb.group({
-        estado: [this.pedido.nuevoEstado],
-        nuevoEstado: [this.pedido.nuevoEstado],
-        fecha_salida: [this.pedido.fecha_salida],
-        almacen_origen: [this.pedido.almacen_origen],
-        almacen_destino: [this.pedido.almacen_destino],
-        matricula: [this.pedido.matricula],
-        detalles: [this.pedido.detalles],
-        comentario_error: [this.pedido.comentario_error]
-      })
-    }
+  onDateChange(newDate: Date) {
+    console.log(newDate);
   }
 
+  ngOnInit(): void {
+    this.listadoService.obtenerAlmacenes().subscribe(a => {this.almacenes = a, console.log(a)})
+ 
+  if (this.pedido != undefined && this.pedido.fecha_salida) {
+    this.pedido.estado != 'NUEVO' && this.pedido.estado != 'ERROR'? 
+    this.form = this.fb.group({
+      almacen_destino: [{value: this.pedido.almacen_destino , disabled:true}],
+      almacen_origen: [{value: this.pedido.almacen_origen, disabled:true}],
+      fecha_salida: [{value: new Date(this.pedido.fecha_salida), disabled:true}],
+      matricula: [{value:this.pedido.matricula, disabled:true}],
+      detalles: [{value:this.pedido.detalles, disabled:true}],
+      comentario_error: [null]
+    }):
+    this.form = this.fb.group({
+      almacen_destino: [this.pedido.almacen_destino],
+      almacen_origen: [this.pedido.almacen_origen],
+      fecha_salida: [new Date(this.pedido.fecha_salida)],
+      matricula: [this.pedido.matricula],
+      detalles: [this.pedido.detalles],
+      comentario_error: [{value:this.pedido.comentario_error, disabled:true}]
+    })
+  }else{
+    this.form = this.fb.group({
+      almacen_destino: [null],
+      almacen_origen: [null],
+      fecha_salida: [null],
+      matricula: [null],
+      detalles: [null],
+      comentario_error: [null]
+    })
+  }
+  }
   
-  onSubmit(){
-    if (this.pedido != undefined) {
-      this.form  = this.fb.group({
-        estado_id: 7,
-        fecha_salida: [this.pedido.fecha_salida],
-        almacen_origen: [this.pedido.almacen_origen],
-        almacen_destino: [this.pedido.almacen_destino],
-        matricula: [this.pedido.matricula],
-        detalles: [this.pedido.detalles],
-        comentario_error: [this.pedido.comentario_error]
-      })
-      console.log(this.form.value);
+onSubmit(){
+  const pedido: ListadoActivos = {
+  almacen_destino: this.form.value.almacen_destino,
+  almacen_origen: this.form.value.almacen_origen,
+  matricula: this.form.value.matricula,
+  detalles: this.form.value.detalles,
+  fecha_salida: this.datePipe.transform(this.form.value.fecha_salida, 'YYYY-MM-dd')
+}
 
-      const response = this.listadoService.editPedido(this.form.value, this.pedido.referencia).subscribe(resp =>{
-        console.log(resp)
-       });
-      console.log(response);
-
-    }
-    else {
-      const response = this.listadoService.addPedido(this.form.value);
-      console.log(response);
-    }
-    
+if(this.pedido){
+  this.listadoService.editPedido(pedido, this.pedido.referencia ).subscribe(resp => console.log(resp))
+}else {
+  this.listadoService.addPedidos(pedido).subscribe(resp => console.log(resp))
+}    
     this.activeModal.close(true)
 
-    this.router.navigate(['/listados/listado-activos']);
+  }
+
+  enviarRevision(){
+    const pedido: ListadoActivos = {
+      almacen_destino: this.form.value.almacen_destino,
+      almacen_origen: this.form.value.almacen_origen,
+      matricula: this.form.value.matricula,
+      detalles: this.form.value.detalles,
+      fecha_salida: this.datePipe.transform(this.form.value.fecha_salida, 'YYYY-MM-dd'),
+      estado: this.pedido.estado
+    }
+    this.listadoService.envioRevision(this.pedido.referencia).subscribe(resp => {
+      console.log(resp)
+      this.activeModal.close(true)
+    })
+  }
+
+  aprobarPedido(){
+   this.encargadoService.aprobarPedido(this.pedido.referencia).subscribe(resp =>{
+    console.log(resp)
+    this.activeModal.close(true)
+   })
+  }
+  denegarPedido(){
+this.encargadoService.rechazarPedido(this.pedido.referencia, this.form.value.comentario_error).subscribe(resp =>{
+  console.log(resp)
+  this.activeModal.close(true)
+})
+  }
+  cerrarPedido(){
+    this.listadoService.cerrarPedido(this.pedido.referencia).subscribe(resp => {
+      console.log(resp)
+      this.activeModal.close(true)
+    })
   }
 
   ngOnDestroy(): void {

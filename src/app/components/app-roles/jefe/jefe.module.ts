@@ -10,7 +10,7 @@ import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
 
 //Components
-import { ListadosComponent } from './listados/listados.component';
+import { ListadosJefeComponent } from './listados/listados.component';
 import { ListadoUsuariosComponent } from './listados/components/listado-usuarios/listado-usuarios.component';
 import { ModalEditarUsuarioComponent } from './listados/components/listado-usuarios/components/modal-editar-usuario/modal-editar-usuario.component';
 import { ListadoAlmacenesComponent } from './listados/components/listado-almacenes/listado-almacenes.component';
@@ -22,7 +22,7 @@ import { ModalEditarAlmacenComponent } from './listados/components/listado-almac
 @NgModule({
   declarations: [
     ListadoUsuariosComponent,
-    ListadosComponent,
+    ListadosJefeComponent,
     ModalEditarUsuarioComponent,
     ListadoAlmacenesComponent,
     ModalEditarAlmacenComponent,
