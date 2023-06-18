@@ -82,6 +82,9 @@
     <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
       <div class="text-center">
         <div class="btn-group btn-group-sm" role="group">
+          <button type="button" class="btn btn-edit" (click)="verRuta(row)">
+            <i class="fa-solid fa-location-dot fa-lg"></i>
+          </button>
           <button type="button" class="btn btn-edit" (click)="editarPedido(row)">
             <i class="fa-solid fa-pen-to-square fa-lg"></i>
           </button>

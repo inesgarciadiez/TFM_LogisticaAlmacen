@@ -19,7 +19,7 @@ import { ListadosEncargadoService } from 'src/app/components/app-roles/encargado
 export class ModalAltaPedidoComponent implements OnInit, OnDestroy{
 
   private destroyed$ = new Subject<void>()
-  public almacenes: Almacenes[] = []
+  public almacenes: Almacenes[] = [];
   @Input() pedido!: ListadoActivos
   public form!: FormGroup
 
