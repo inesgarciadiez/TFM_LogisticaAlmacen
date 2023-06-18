@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { ModalAbrirMapaComponent } from './listados/components/listado-activos/components/modal-abrir-mapa/modal-abrir-mapa.component';
 import { AgmDirectionModule } from 'agm-direction';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
       useClass:AuthInterceptor,
       multi:true
     }
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class OperarioModule { }
