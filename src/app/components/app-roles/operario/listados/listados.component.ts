@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-listados',
+  selector: 'app-listados-operario',
   templateUrl: './listados.component.html',
   styleUrls: ['./listados.component.css']
 })
-export class ListadosComponent implements OnInit, OnDestroy {
+export class ListadosOperarioComponent implements OnInit, OnDestroy {
 
   private destroyed$ = new Subject<void>()
 

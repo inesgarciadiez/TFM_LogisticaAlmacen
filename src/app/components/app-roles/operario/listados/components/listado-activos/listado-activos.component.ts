@@ -20,7 +20,6 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
   public columns: Array<object> = [];
   public temp: Array<object> = [];
   public pedidos: ListadoActivos[] = [];
-  public dataPedidoMostrar: PedidoMostrar[] = [];
   private destroyed$ = new Subject<void>()
 
   constructor(private listadoService: ListadosService, private modalService: NgbModal) {
@@ -28,46 +27,43 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
  ngOnInit() {
+  
   this.columns = [ 
-    { prop: "referencia", name: 'Referencia' }, 
     { prop: "estado", name: 'Estado' }, 
     { prop: "fecha_salida", name: 'Fecha salida' }, 
     { prop: "almacen_origen", name: 'Almacen origen' }, 
     { prop: "almacen_destino", name: 'Almacen destino' }, 
     { prop: "matricula", name: 'Matrícula' },
-    { prop: "detalles", name: 'Detalles' }
+  ];
+  this.obtenerPedidos()
+}
 
-  ]
+  obtenerPedidos(){
     this.listadoService.obtenerPedidos().subscribe( pedidos => {
-      for (let i = 0; i < pedidos.length ; i++)
-      {
-        if (pedidos[i].estado.includes("CERRADO") == false) {
-          this.pedidos.push(pedidos[i])
-          this.temp = this.pedidos;
-          this.rows = [...this.temp]
-
-        }
-
-      }
-    });
+      console.log(pedidos)
+        this.pedidos = pedidos.filter(p => p.estado != "CERRADO")
+        this.temp = this.pedidos;
+        this.rows = [...this.temp]
+       });
   }
 
   crearPedido(){
-    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg'});
-    modalRef.result.then((result) => {
+    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'xl'});
+      modalRef.result.then((result) => {
       if(result){
         console.log("creo")
+        this.obtenerPedidos()
       }
     });
   }
   
   editarPedido(pedido: ListadoActivos) {
-    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'lg' });
+    const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'xl' });
     modalRef.componentInstance.pedido = pedido
-    
     modalRef.result.then((result) => {
       if (result) {
         console.log("edito")
+        this.obtenerPedidos()
       }
     });
   }
@@ -75,6 +71,7 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
   eliminarPedido(pedido: ListadoActivos) {
     const modalRef = this.modalService.open(ModalEliminarPedidoComponent, { centered: true });
     modalRef.componentInstance.pedido = pedido
+    this.obtenerPedidos()
   }
 
   ngAfterViewInit(): void {

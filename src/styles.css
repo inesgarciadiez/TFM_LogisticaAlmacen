@@ -44,6 +44,11 @@ html, body {
     border-radius: 7px 7px 0px 0px;
     text-align: center; 
 }
+.ngx-datatable.bootstrap .datatable-body .datatable-body-cell{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
 .ngx-datatable.bootstrap .datatable-footer{
     background-color:#1B2540 !important;
 }

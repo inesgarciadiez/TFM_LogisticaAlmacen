@@ -1,7 +1,4 @@
-<div class="d-flex flex-row justify-content-sm-between bloque1">
-    <div>
-      <button class="btn btn-guardar btn-sm" ><i class="fa-regular fa-folder-plus"></i> Pedido</button>
-    </div>
+<div class="d-flex flex-row justify-content-end bloque1">
     <div>
     <div class="input-group input-group-sm">
       <input type="text" #search id="search" class="form-control input-buscar border-0" placeholder="Buscar...">
@@ -13,17 +10,6 @@
 
 <ngx-datatable #table class="bootstrap mb-5 mt-3" [columns]="columns" [headerHeight]="40" [rows]="rows"
   [columnMode]="'force'" [footerHeight]="40" [limit]="10" rowHeight="auto">
-  <ngx-datatable-column name="Referencia" prop="referencia">
-    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-      <span (click)="sort()">Referencia</span>
-    </ng-template>
-
-    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-      <div class="d-flex justify-content-center">
-        {{ value }}
-      </div>
-    </ng-template>
-  </ngx-datatable-column>
 
   <ngx-datatable-column name="Estado" prop="estado">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
@@ -54,7 +40,7 @@
     </ng-template>
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="d-flex justify-content-center">
-      <input type="password" [value]="value" id="pass" disabled>
+          {{ value }}
     </div>
     </ng-template>
   </ngx-datatable-column>
@@ -66,7 +52,7 @@
     </ng-template>
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="d-flex justify-content-center">
-      <input type="password" [value]="value" id="pass" disabled>
+          {{ value }}
     </div>
     </ng-template>
   </ngx-datatable-column>
@@ -78,10 +64,12 @@
     </ng-template>
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="d-flex justify-content-center">
-      <input type="password" [value]="value" id="pass" disabled>
+          {{ value }}
     </div>
     </ng-template>
   </ngx-datatable-column>
+
+  
 
   <ngx-datatable-column name="acciones" [sortable]="false" prop="name">
     <ng-template let-column="column" ngx-datatable-header-template>
@@ -93,11 +81,8 @@
     <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
       <div class="text-center">
         <div class="btn-group btn-group-sm" role="group">
-          <button type="button" class="btn btn-edit">
+          <button type="button" class="btn btn-edit" (click)="editarPedido(row)">
             <i class="fa-solid fa-pen-to-square fa-lg"></i>
-          </button>
-          <button type="button" class="btn btn-trash">
-            <i class="fa-solid fa-trash-can fa-lg"></i>
           </button>
         </div>
       </div>

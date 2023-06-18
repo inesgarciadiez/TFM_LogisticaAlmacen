@@ -4,11 +4,11 @@ import { Subject } from 'rxjs';
   
 
 @Component({
-  selector: 'app-listados',
+  selector: 'app-listados-jefe',
   templateUrl: './listados.component.html',
   styleUrls: ['./listados.component.css']
 })
-export class ListadosComponent implements OnInit, OnDestroy{
+export class ListadosJefeComponent implements OnInit, OnDestroy{
 
   private destroyed$ = new Subject<void>()
 
