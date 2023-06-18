@@ -31,7 +31,7 @@ export class ModalAltaPedidoComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.listadoService.obtenerAlmacenes().subscribe(a => {this.almacenes = a, console.log(a)})
  
-  if (this.pedido != undefined) {
+  if (this.pedido != undefined && this.pedido.fecha_salida) {
     this.pedido.estado != 'NUEVO' && this.pedido.estado != 'ERROR' && this.pedido.estado != 'LISTO_SALIDA' ? 
     this.form = this.fb.group({
       almacen_destino: [{value: this.pedido.almacen_destino , disabled:true}],
@@ -43,7 +43,7 @@ export class ModalAltaPedidoComponent implements OnInit, OnDestroy{
     this.form = this.fb.group({
       almacen_destino: [this.pedido.almacen_destino],
       almacen_origen: [this.pedido.almacen_origen],
-      fecha_salida: [this.pedido.fecha_salida],
+      fecha_salida: [new Date(this.pedido.fecha_salida)],
       matricula: [this.pedido.matricula],
       detalles: [this.pedido.detalles]
     })
@@ -107,7 +107,8 @@ if(this.pedido){
       almacen_origen: this.form.value.almacen_origen,
       matricula: this.form.value.matricula,
       detalles: this.form.value.detalles,
-      fecha_salida: this.datePipe.transform(this.form.value.fecha_salida, 'YYYY-MM-dd')
+      fecha_salida: this.datePipe.transform(this.form.value.fecha_salida, 'YYYY-MM-dd'),
+      estado: this.pedido.estado
     }
     console.log(pedido)
     this.listadoService.envioRevision(this.pedido.referencia ).subscribe(resp => console.log(resp))

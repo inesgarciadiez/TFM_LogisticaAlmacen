@@ -32,19 +32,12 @@ export class ListadosService {
   }
   
   editPedido(pedido:ListadoActivos, idPedido:number|undefined): Observable<ListadoActivos> {
-    const prueba: ListadoActivos = {
-      almacen_destino: "Fuente del Jarro",
-      almacen_origen: "ColeVega",
-      matricula: "1234-ABC",
-      detalles: "Paquete papel A4 500uds Tinta negro Tinta color",
-      fecha_salida: "2023-06-05"
-    }
     const url = `${environment.apiUrl}/pedidos/13`;
-    return this.clientHttp.put<ListadoActivos>(url, prueba);
+    return this.clientHttp.put<ListadoActivos>(url, pedido);
   }
   envioRevision(idPedido:number|undefined): Observable<ListadoActivos> {
     const url = `${environment.apiUrl}/pedidos/operario/enviorevision/${idPedido}`;
-    return this.clientHttp.put<ListadoActivos>(url,idPedido);
+    return this.clientHttp.put<ListadoActivos>(url,null);
   }
 
   eliminarPedido(pedidoId: number| undefined) {
