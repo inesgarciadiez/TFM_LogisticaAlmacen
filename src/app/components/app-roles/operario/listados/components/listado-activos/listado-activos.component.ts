@@ -70,7 +70,11 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
   eliminarPedido(pedido: ListadoActivos) {
     const modalRef = this.modalService.open(ModalEliminarPedidoComponent, { centered: true });
     modalRef.componentInstance.pedido = pedido
-    this.obtenerPedidos()
+    modalRef.result.then((result) => {
+      if (result) {
+        this.obtenerPedidos()
+      }
+    });
   }
 
   ngAfterViewInit(): void {
