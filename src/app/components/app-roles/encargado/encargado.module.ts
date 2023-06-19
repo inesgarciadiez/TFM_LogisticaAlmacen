@@ -9,12 +9,14 @@ import { ListadosComponent } from './listados/listados.component';
 import { ListadoPedidosComponent } from './listados/components/listado-pedidos/listado-pedidos.component';
 import { ListadosEncargadoService } from '../encargado/services/listados.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ListadoCerradosComponent } from './listados/components/listado-cerrados/listado-cerrados.component';
 
 
 @NgModule({
   declarations: [
     ListadosComponent,
-    ListadoPedidosComponent
+    ListadoPedidosComponent,
+    ListadoCerradosComponent
   ],
   imports: [
     CommonModule,

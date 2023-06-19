@@ -1,0 +1,75 @@
+<div class="d-flex flex-row justify-content-sm-between bloque1">
+    <div>
+    </div>
+    <div>
+    <div class="input-group input-group-sm">
+      <input type="text" #search id="search" class="form-control input-buscar border-0" placeholder="Buscar...">
+      <span class="input-group-text border-0 icon-buscar" id="inputGroup-sizing-sm"><i class="fa-solid fa-magnifying-glass"></i></span>
+    </div>
+    </div>
+    
+  </div>
+  
+  <ngx-datatable #table class="bootstrap mb-5 mt-3" [columns]="columns" [headerHeight]="40" [rows]="rows"
+  [columnMode]="'force'" [footerHeight]="40" [limit]="10" rowHeight="auto">
+  
+  <ngx-datatable-column name="Estado" prop="estado">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span (click)="sort()">Estado </span>
+    </ng-template>
+  
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  
+  <ngx-datatable-column name="Fecha salida" prop="fecha_salida">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span (click)="sort()">Fecha salida</span>
+    </ng-template>
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  
+  <ngx-datatable-column name="Almacen origen" prop="almacen_origen">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span (click)="sort()">Almacen origen</span>
+    </ng-template>
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  
+  
+  <ngx-datatable-column name="Almacen destino" prop="almacen_destino">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span (click)="sort()">Almacen destino</span>
+    </ng-template>
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  
+  
+  <ngx-datatable-column name="Matrícula" prop="matricula">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span (click)="sort()">Matrícula</span>
+    </ng-template>
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  
+  <ngx-datatable-column name="Detalles de la carga" prop="detalles">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span (click)="sort()">Detalles de la carga</span>
+    </ng-template>
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  
+  </ngx-datatable>
+  
+  

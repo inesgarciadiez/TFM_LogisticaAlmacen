@@ -16,6 +16,10 @@ export class ListadosEncargadoService {
     const url = `${environment.apiUrl}/pedidos/encargado`
     return this.clientHttp.get<ListadoActivos[]>(url);
   }
+  obtenerPedidosCerrados(): Observable<ListadoActivos[]>{
+    const url = `${environment.apiUrl}/pedidos/encargado/cerrados`
+    return this.clientHttp.get<ListadoActivos[]>(url);
+  }
 
   aprobarPedido(idPedido:number|undefined): Observable<ListadoActivos> {
     const url = `${environment.apiUrl}/pedidos/encargado/aprobar/${idPedido}`;
