@@ -18,7 +18,18 @@ html, body {
   .wrapper{
     min-height: 73%;
 }
-
+.img-responsive {
+    max-width: 100%;
+  }
+  .alerta {
+    color: #ff5a5a;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: smaller;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
 
 
 /*BOTONES*/
@@ -114,10 +125,5 @@ text-align: center;
     color: white;
 }
 
-body {
-    margin: 0;
-    
-  }
-  .img-responsive {
-    max-width: 100%;
-  }
+
+

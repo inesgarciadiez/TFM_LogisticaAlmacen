@@ -31,7 +31,7 @@ export class ListadosService {
   }
   
   editPedido(pedido:ListadoActivos, idPedido:number|undefined): Observable<ListadoActivos> {
-    const url = `${environment.apiUrl}/pedidos/13`;
+    const url = `${environment.apiUrl}/pedidos/${idPedido}`;
     return this.clientHttp.put<ListadoActivos>(url, pedido);
   }
   envioRevision(idPedido:number|undefined): Observable<ListadoActivos> {

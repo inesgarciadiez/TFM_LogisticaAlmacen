@@ -3,6 +3,7 @@
     <div class="modal-header custom">
           <h6 *ngIf="pedido"  class="modal-title" >EDITAR PEDIDO</h6>
           <h6 *ngIf="!pedido" class="modal-title">NUEVO PEDIDO</h6>
+          <button type="button" class="btn-close" (click)="activeModal.close(null)"></button>
     </div>
     <div class="modal-body p-modal">
       <h6 *ngIf="pedido" class="ms-2" >FORMULARIO EDITAR PEDIDO</h6>
@@ -23,14 +24,17 @@
             <span class="input-group-text calendar border-0">
               <i class="fa-regular fa-calendar-days"></i>
             </span>
+            <span *ngIf="checkCampo('fecha_salida', 'required')" class="alerta">Debe rellenar este campo</span>
         </div>
           <div class="col-md-3">
             <label for="orogen" class="form-label">Almacén origen</label> 
             <ng-select #select [items]="almacenes" bindLabel="nombre" formControlName = "almacen_destino" bindValue="nombre"></ng-select>
+            <span *ngIf="checkCampo('almacen_destino', 'required')" class="alerta">Debe rellenar este campo</span>
           </div>
           <div class="col-md-3">
             <label for="destino"  class="form-label">Almacén destino</label> 
             <ng-select #select  [items]="almacenes" bindLabel="nombre" formControlName = "almacen_origen" bindValue="nombre"></ng-select>
+            <span *ngIf="checkCampo('almacen_origen', 'required')" class="alerta">Debe rellenar este campo</span>
           </div>
           <div class="col-md-2">
             <label for="matricula" class="form-label"
@@ -42,42 +46,47 @@
               id="matricula"
               formControlName = "matricula"
             />
+            <span *ngIf="checkCampo('matricula', 'required')" class="alerta">Debe rellenar este campo</span>
+            <span *ngIf="form.get('matricula')?.hasError('minlength') && form.get('matricula')?.touched" class="alerta"> El campo debe tener al menos 5 caracteres</span>
           </div>
       </div>
           <div class="flex-row d-flex mb-4 ">
           <div class="mb-3 col-6 p-3 ">
             <label for="carga" class="form-label">Detalles de la carga</label>
             <textarea class="form-control border-0 sombras" formControlName = "detalles" id="carga" rows="4"></textarea>
+            <span *ngIf="checkCampo('detalles', 'required')" class="alerta">Debe rellenar este campo</span>
+            <span *ngIf="form.get('detalles')?.hasError('minlength') && form.get('detalles')?.touched" class="alerta"> El campo debe tener al menos 5 caracteres</span>
           </div>
           <div *ngIf="pedido && (pedido.estado == 'PTE_ENTRADA' || pedido.estado == 'PTE_SALIDA' || pedido.estado == 'ERROR')" class="mb-3 col-6 p-3 ">
             <label for="carga" class="form-label">Motivos de denegación</label>
             <textarea class="form-control border-0 sombras" formControlName = "comentario_error" id="carga" rows="4"></textarea>
+            <span *ngIf="checkCampo('comentario_error', 'required')" class="alerta">Si desea denegar el pedido debe rellenar este campo</span>
           </div>
         </div>
 
     <div class="flex-row d-flex justify-content-between gap-2 footer-modal">
       <div >
-      <button *ngIf="pedido && (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR')" type="button" (click)="enviarRevision()" class="btn ms-3 btn-eliminar">
+      <button [disabled]="form.invalid && !form.disable" *ngIf="pedido && (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR')" type="button" (click)="enviarRevision()" class="btn ms-3 btn-eliminar" [ngClass]="{ 'disabled-button-revi': form.invalid }">
         <i class="fa-solid fa-paper-plane"></i> Revisión
       </button>
       </div>
-      <div *ngIf="pedido && (pedido.estado == 'PTE_ENTRADA' || pedido.estado == 'PTE_SALIDA') ">
-        <button  type="button" (click)="aprobarPedido()" class="btn ms-3 btn-guardar">
+      <div  *ngIf="pedido && (pedido.estado == 'PTE_ENTRADA' || pedido.estado == 'PTE_SALIDA') ">
+        <button type="button" (click)="aprobarPedido()" class="btn ms-3 btn-guardar">
           <i class="fa-solid fa-check-double"></i> Aprobar
         </button>
-        <button  type="button" (click)="denegarPedido()" class="btn ms-3 btn-eliminar">
+        <button [disabled]="form.invalid" type="button" (click)="denegarPedido()" class="btn ms-3 btn-eliminar" [ngClass]="{ 'disabled-button': form.invalid }">
           <i class="fa-solid fa-reply"></i> Denegar
         </button>
         </div>
-        <button *ngIf="pedido && (pedido.estado == 'LISTO_SALIDA')" type="button" (click)="enviarRevision()" class="btn ms-3 btn-eliminar">
+        <button [disabled]="form.invalid && !form.disable" *ngIf="pedido && (pedido.estado == 'LISTO_SALIDA')" type="button" (click)="enviarRevision()" class="btn ms-3 btn-eliminar" [ngClass]="{ 'disabled-button-revi': form.invalid }">
           <i class="fa-solid fa-paper-plane"></i> Revisión
         </button>
         <button *ngIf="pedido && (pedido.estado == 'LISTO_ENTRADA')" type="button" (click)="cerrarPedido()" class="btn ms-3 btn-eliminar">
-          <i class="fa-solid fa-paper-plane"></i> Cerrar
+          <i class="fa-solid fa-paper-plane"></i> Cerrar pedido
         </button>
-      <div *ngIf="!pedido || (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR' )" class="d-flex gap-3 ">
-      <button type="submit" class="btn btn-guardar">
-        <i class="fa-solid fa-floppy-disk"></i> Guardar
+      <div  *ngIf="!pedido || (pedido.estado == 'NUEVO' || pedido.estado == 'ERROR' )" class="d-flex gap-3 ">
+      <button [disabled]="form.invalid" type="submit" class="btn btn-guardar" [ngClass]="{ 'disabled-button': form.invalid }">
+        <i  class="fa-solid fa-floppy-disk" ></i> Guardar
       </button>
       <button
         type="button"

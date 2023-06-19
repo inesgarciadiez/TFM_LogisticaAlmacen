@@ -52,7 +52,6 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
     const modalRef = this.modalService.open(ModalAltaPedidoComponent, { centered: true, size: 'xl'});
       modalRef.result.then((result) => {
       if(result){
-        console.log("creo")
         this.obtenerPedidos()
       }
     });
@@ -63,7 +62,6 @@ export class ListadoActivosComponent implements OnInit, OnDestroy, AfterViewInit
     modalRef.componentInstance.pedido = pedido
     modalRef.result.then((result) => {
       if (result) {
-        console.log("edito")
         this.obtenerPedidos()
       }
     });

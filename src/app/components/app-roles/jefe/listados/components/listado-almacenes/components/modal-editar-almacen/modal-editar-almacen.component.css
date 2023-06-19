@@ -11,3 +11,9 @@
   .footer-modal{
     margin: 5px 40px 25px 0px;
   }
+
+  .disabled-button{
+    background-color: #98B9BE;
+    color: #1B2540;
+    border: 0;
+  }

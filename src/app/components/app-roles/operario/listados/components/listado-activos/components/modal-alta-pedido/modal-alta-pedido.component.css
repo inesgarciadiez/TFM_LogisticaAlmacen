@@ -25,5 +25,17 @@
   background-color: #1b2540f5 !important;
 }
 
+.disabled-button{
+  background-color: #98B9BE;
+  color: #1B2540;
+  border: 0;
+}
+
+.disabled-button-revi{
+  background-color: #BC7B39;
+  color: white;
+  border: 0;
+}
+
 
 

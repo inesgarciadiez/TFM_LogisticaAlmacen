@@ -29,9 +29,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     HomeComponent,
     LoginComponent,
   ],
-  exports:[
-
-    ],
   imports: [
     BrowserModule,
     CommonModule,
@@ -46,7 +43,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AgmDirectionModule,
     NgSelectModule
   ],
-  
   providers:[
     {
       provide: HTTP_INTERCEPTORS,

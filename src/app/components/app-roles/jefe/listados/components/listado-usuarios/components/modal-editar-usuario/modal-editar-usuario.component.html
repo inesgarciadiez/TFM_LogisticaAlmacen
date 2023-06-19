@@ -11,20 +11,28 @@
                 <div class="col-md-5">
                     <label for="inputEmail4" class="form-label">Nombre</label>
                     <input type="text" formControlName="nombre" class="form-control border-0 sombras" id="inputEmail4">
+                    <span *ngIf="checkCampo('nombre', 'required')" class="alerta">Debe rellenar este campo</span>
+            <span *ngIf="form.get('nombre')?.hasError('minlength') && form.get('nombre')?.touched" class="alerta"> El campo debe tener al menos 3 caracteres</span>
                   </div>
                   <div class="col-md-5">
                     <label for="inputEmail4" class="form-label">Apellidos</label>
                     <input type="text" formControlName="apellidos" class="form-control border-0 sombras" id="inputEmail4">
+                    <span *ngIf="checkCampo('apellidos', 'required')" class="alerta">Debe rellenar este campo</span>
+            <span *ngIf="form.get('apellidos')?.hasError('minlength') && form.get('apellidos')?.touched" class="alerta"> El campo debe tener al menos 3 caracteres</span>
                   </div>
                 </div>
                <div class="flex-row d-flex justify-content-around">
                   <div class="col-md-5">
                     <label for="inputEmail4" class="form-label">Correo</label>
                     <input type="email" formControlName="correo" class="form-control border-0 sombras" id="inputEmail4">
+                    <span *ngIf="checkCampo('correo', 'required')" class="alerta">Debe rellenar este campo</span>
+                    <span *ngIf="checkCampo('correo', 'pattern')" class="alerta">Introduzca un correo válido</span>
                   </div>
                   <div class="col-md-5">
                     <label for="inputPassword4" class="form-label">Password</label>
                     <input type="password" formControlName="contrasena" class="form-control border-0 sombras" id="inputPassword4">
+                    <span *ngIf="checkCampo('contrasena', 'required')" class="alerta">Debe rellenar este campo</span>
+                    <span *ngIf="form.get('contrasena')?.hasError('minlength') && form.get('contrasena')?.touched" class="alerta"> El campo debe tener al menos 8 caracteres</span>
                   </div>
                 </div>
 
@@ -34,6 +42,7 @@
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" formControlName="rol" name="rol" id="inlineRadio1" value="Encargado">
                     <label class="form-check-label" for="inlineRadio1">Encargado</label>
+                    <span *ngIf="checkCampo('rol', 'required')" class="alerta">Debe asignar algun rol</span>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" formControlName="rol" type="radio" name="rol" id="inlineRadio2" value="Operario">
@@ -43,12 +52,12 @@
                     <input class="form-check-input" type="radio" formControlName="rol" name="rol" id="inlineRadio3" value="Jefe de equipo">
                     <label class="form-check-label" for="inlineRadio3">Jefe de Equipo</label>
                   </div>
-    
+                 
             </div>
 
         </div>
         <div class="flex-row d-flex justify-content-end gap-2 footer-modal">
-            <button type="submit" class="btn btn-guardar"> <i class="fa-solid fa-lg fa-floppy-disk"></i> Guardar</button>
+            <button [disabled]="form.invalid" type="submit" class="btn btn-guardar" [ngClass]="{ 'disabled-button': form.invalid }"> <i class="fa-solid fa-lg fa-floppy-disk"></i> Guardar</button>
           <button type="button" class="btn btn-secondary" (click)="activeModal.close(null)">Cancelar</button>
         </div>
       </div>

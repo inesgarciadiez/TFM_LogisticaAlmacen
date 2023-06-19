@@ -25,7 +25,7 @@ export class ListadosEncargadoService {
     const url = `${environment.apiUrl}/pedidos/encargado/aprobar/${idPedido}`;
     return this.clientHttp.put<ListadoActivos>(url,null);
   }
-  rechazarPedido(idPedido: number | undefined, comentario: string) :Observable<any>{
+  rechazarPedido(idPedido: number | undefined, comentario: {}) :Observable<any>{
     const url = `${environment.apiUrl}/pedidos/encargado/denegar/${idPedido}`;
     return this.clientHttp.put<ListadoActivos>(url,comentario);
   }

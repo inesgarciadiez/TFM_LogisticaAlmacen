@@ -83,14 +83,7 @@ export class ListadoAlmacenesComponent {
       }
     });
   }
-  //   eliminarUsuario(usuario: Users){
-  //     const modalRef = this.modalService.open(ModalEliminarUsuarioComponent, { centered: true});
-  //   modalRef.result.then((result) => {
-  //     if(result){
-  //       console.log("elimino")
-  //     }
-  //   });
-  //   }
+
 
     ngAfterViewInit(): void {
       fromEvent(this.search.nativeElement, 'keydown')

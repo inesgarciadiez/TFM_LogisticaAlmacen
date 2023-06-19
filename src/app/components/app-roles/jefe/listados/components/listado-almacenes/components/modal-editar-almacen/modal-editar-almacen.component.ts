@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { ListadosService } from 'src/app/components/app-roles/jefe/services/listados.service';
 import { Almacenes, AlmacenesMostrar, Users, UsersMostrar } from 'src/app/interfaces';
+import Swal from 'sweetalert2';
 import { ControlPosition, FullscreenControlOptions, MapTypeControlOptions, Marker, MouseEvent, StreetViewControlOptions } from "@agm/core";
 
 
@@ -22,23 +23,22 @@ export class ModalEditarAlmacenComponent {
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal , private listadosService: ListadosService){}
 
   ngOnInit(): void {
-    console.log(this.almacen)
-    if(this.almacen != undefined){
+    if(this.almacen != undefined ){
       this.form = this.fb.group({
-        nombre: [this.almacen.nombre],
-        direccion: [this.almacen.direccion],
-        codigo_postal: [this.almacen.codigo_postal],
-        ciudad: [this.almacen.ciudad],
+        nombre: [this.almacen.nombre, [Validators.required, Validators.minLength(3)]],
+        direccion: [this.almacen.direccion, [Validators.required]],
+        codigo_postal: [this.almacen.codigo_postal, [Validators.required, Validators.minLength(5)]],
+        ciudad: [this.almacen.ciudad, [Validators.required, Validators.minLength(3)]],
         responsable: [this.almacen.name_responsable],
-      })
-    }else{
+      });
+    } else {
       this.form = this.fb.group({
-        nombre: [null],
-        direccion: [null],
-        codigo_postal: [null],
-        ciudad: [null],
+        nombre: [null, [Validators.required, Validators.minLength(3)]],
+        direccion: [null, [Validators.required]],
+        codigo_postal: [null, [Validators.required, Validators.minLength(5)]],
+        ciudad: [null, [Validators.required, Validators.minLength(3)]],
         responsable: [null],
-      })
+      });
     }
     
     this.listadosService.obtenerUsuarios().subscribe(users => {
@@ -63,17 +63,51 @@ export class ModalEditarAlmacenComponent {
          ciudad: this.form.value.ciudad,
          responsable_id: this.form.value.responsable['id'] != undefined? this.form.value.responsable['id']: this.almacen.id_responsable,
        }
-     console.log(almacenEdit)
      if(this.almacen!= undefined){
-        this.listadosService.editarAlmacen(almacenEdit,this.almacen.id).subscribe(resp =>{
-          console.log(resp)
-         })
+        this.listadosService.editarAlmacen(almacenEdit,this.almacen.id).subscribe(
+          (resp) => {
+            Swal.fire({
+              icon: 'success',
+              text: `El almacen se ha editado correctamente`,
+            })
+          },
+          (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.error.mensaje,
+            })
+          }
+        )
      }else{
-       this.listadosService.addAlmacen(almacenEdit).subscribe(resp =>{
-        console.log(resp)
-       })
+       this.listadosService.addAlmacen(almacenEdit).subscribe(
+        (resp) => {
+          Swal.fire({
+            icon: 'success',
+            text: `El almacen se ha añadido correctamente`,
+          })
+        },
+        (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.error.mensaje,
+          })
+        }
+        )
      }
      this.activeModal.close(true)
+  }
+
+  checkCampo(campo: string, valida: string): boolean {
+    
+    if (
+      this.form.get(campo)?.hasError(valida) &&
+      this.form.get(campo)?.touched 
+    ) {
+      return true;
+    }
+    return false;
   }
 
 

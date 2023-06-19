@@ -6,6 +6,7 @@ import { Subject, debounceTime, fromEvent, map } from 'rxjs';
 import { ListadosService } from '../../../services/listados.service';
 import { Roles } from 'src/app/shared/rol-enum';
 
+
 @Component({
   selector: 'app-listado-usuarios',
   templateUrl: './listado-usuarios.component.html',
@@ -67,9 +68,6 @@ export class ListadoUsuariosComponent implements OnInit, OnDestroy, AfterViewIni
         this.getUsers()
       }
     });
-  }
-  eliminarUsuario(usuario: Users) {
-
   }
 
   ngAfterViewInit(): void {

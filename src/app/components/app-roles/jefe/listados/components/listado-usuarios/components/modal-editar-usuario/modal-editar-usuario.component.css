@@ -23,3 +23,8 @@
   .custom-radio .form-check-input{
     border: 2px solid #BC7B39;
   }
+  .disabled-button{
+    background-color: #98B9BE;
+    color: #1B2540;
+    border: 0;
+  }
