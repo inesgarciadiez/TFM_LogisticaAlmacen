@@ -8,6 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 //Components
 import { ListadosJefeComponent } from './listados/listados.component';
@@ -39,6 +40,7 @@ import { ModalEditarAlmacenComponent } from './listados/components/listado-almac
   ],
   providers:[
     ListadosService,
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class JefeModule { }
