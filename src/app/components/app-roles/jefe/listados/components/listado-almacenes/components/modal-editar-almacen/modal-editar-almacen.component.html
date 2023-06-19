@@ -11,20 +11,27 @@
                 <div class="col-md-3">
                     <label for="ciudad" class="form-label">Ciudad</label>
                     <input type="text" formControlName="ciudad" class="form-control border-0 sombras" id="ciudad">
+                    <span *ngIf="checkCampo('ciudad', 'required')" class="alerta">Debe rellenar este campo</span>
+                    <span *ngIf="form.get('ciudad')?.hasError('minlength') && form.get('ciudad')?.touched" class="alerta"> El campo debe tener al menos 3 caracteres</span>
                   </div>
                   <div class="col-md-4">
                     <label for="direccion" class="form-label">Dirección</label>
                     <input type="text" formControlName="direccion" class="form-control border-0 sombras" id="direccion">
+                    <span *ngIf="checkCampo('direccion', 'required')" class="alerta">Debe rellenar este campo</span>
                   </div>
                   <div class="col-md-2">
                     <label for="codigo_postal" class="form-label">Código Postal</label>
                     <input type="email" formControlName="codigo_postal" class="form-control border-0 sombras" id="codigo_postal">
+                    <span *ngIf="checkCampo('codigo_postal', 'required')" class="alerta">Debe rellenar este campo</span>
+                    <span *ngIf="form.get('codigo_postal')?.hasError('minlength') && form.get('codigo_postal')?.touched" class="alerta"> El campo debe tener al menos 5 caracteres</span>
                   </div>
                 </div>
                <div class="flex-row mb-5 mt-3 d-flex justify-content-around">
                   <div class="col-md-5">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" formControlName="nombre" class="form-control border-0 sombras" id="nombre">
+                    <span *ngIf="checkCampo('nombre', 'required')" class="alerta">Debe rellenar este campo</span>
+                    <span *ngIf="form.get('nombre')?.hasError('minlength') && form.get('nombre')?.touched" class="alerta"> El campo debe tener al menos 3 caracteres</span>
                   </div>
                   <div class="col-md-5">
                         <label for="responsable" class="form-label">Responsable</label> 
