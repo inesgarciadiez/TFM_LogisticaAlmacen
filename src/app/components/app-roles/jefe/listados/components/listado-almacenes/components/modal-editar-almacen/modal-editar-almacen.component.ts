@@ -4,6 +4,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { ListadosService } from 'src/app/components/app-roles/jefe/services/listados.service';
 import { Almacenes, AlmacenesMostrar, Users, UsersMostrar } from 'src/app/interfaces';
+import { ControlPosition, FullscreenControlOptions, MapTypeControlOptions, Marker, MouseEvent, StreetViewControlOptions } from "@agm/core";
+
 
 @Component({
   selector: 'app-modal-editar-almacen',

@@ -41,9 +41,14 @@ export class ListadosService {
 
   eliminarPedido(pedidoId: number| undefined) {
     const url = `${environment.apiUrl}/pedidos/${pedidoId}`;
-    console.log(url);
     return this.clientHttp.delete<ListadoActivos[]>(url);
   }
+
+  obtenerCiudadAlmacen(nombre: string) {
+    const url = `${environment.apiUrl}/almacenes/${nombre}`;
+    return this.clientHttp.get<Almacenes[]>(url);
+  }
+  
   cerrarPedido(idPedido:number|undefined): Observable<ListadoActivos> {
     const url = `${environment.apiUrl}/pedidos/operario/cerrar/${idPedido}`;
     return this.clientHttp.put<ListadoActivos>(url,null);

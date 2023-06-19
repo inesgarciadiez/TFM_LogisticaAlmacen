@@ -1,3 +1,7 @@
+<div class="map">
+  <agm-map></agm-map>
+</div>
+
 <form [formGroup]="form" (submit)="onSubmit()">
     <div class="modal-content border-0 modal-fondo">
         <div class="modal-header custom">
@@ -28,7 +32,7 @@
                   </div>
                   <div class="col-md-5">
                         <label for="responsable" class="form-label">Responsable</label> 
-                        <ng-select #select formControlName="responsable"  [items]="usuarios" bindLabel="nombre"></ng-select>
+                        <ng-select #select formControlName="responsable" bindLabel="nombre"></ng-select>
                 </div>
                 </div>
         </div>

@@ -6,7 +6,8 @@ import { JefeRoutingModule } from './jefe-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
 
 //Components
 import { ListadosJefeComponent } from './listados/listados.component';
@@ -33,7 +34,8 @@ import { ModalEditarAlmacenComponent } from './listados/components/listado-almac
     NgxDatatableModule,
     ReactiveFormsModule,
     NgSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot(environment.googleMaps)
   ],
   providers:[
     ListadosService,

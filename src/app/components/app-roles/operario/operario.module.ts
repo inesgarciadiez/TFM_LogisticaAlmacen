@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OperarioRoutingModule } from './operario-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,6 +16,12 @@ import { ModalAltaPedidoComponent } from './listados/components/listado-activos/
 import { AuthInterceptor } from 'src/app/shared/auth.interceptor';
 import { ListadosService } from './services/listados.service';
 import { ModalEliminarPedidoComponent } from './listados/components/listado-activos/components/modal-eliminar-pedido/modal-eliminar-pedido.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
+import { ModalAbrirMapaComponent } from './listados/components/listado-activos/components/modal-abrir-mapa/modal-abrir-mapa.component';
+import { AgmDirectionModule } from 'agm-direction';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 @NgModule({
@@ -27,7 +32,8 @@ import { ModalEliminarPedidoComponent } from './listados/components/listado-acti
     ModalAltaPedidoComponent,
     ModalEliminarPedidoComponent,
     ListadoPasadosComponent,
-    ModalAltaPedidoComponent
+    ModalAltaPedidoComponent,
+    ModalAbrirMapaComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +43,8 @@ import { ModalEliminarPedidoComponent } from './listados/components/listado-acti
     ReactiveFormsModule,
     NgSelectModule,
     HttpClientModule,
+    AgmCoreModule.forRoot(environment.googleMaps),
+    AgmDirectionModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule
   ],
@@ -47,6 +55,7 @@ import { ModalEliminarPedidoComponent } from './listados/components/listado-acti
       useClass:AuthInterceptor,
       multi:true
     }
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class OperarioModule { }
